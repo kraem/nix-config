@@ -1,0 +1,38 @@
+{
+    "dotfiles": {
+        "branch": "master",
+        "description": null,
+        "homepage": null,
+        "owner": "kraem",
+        "repo": "dotfiles",
+        "rev": "f307222d3bf4de5cfd2d9ba356551f80e8e7f2bf",
+        "sha256": "1y9ndzz9nv02x9ypfgayk9s8pr8fn15jqhc2i1mi2sblx3w3ifnq",
+        "type": "tarball",
+        "url": "https://github.com/kraem/dotfiles/archive/f307222d3bf4de5cfd2d9ba356551f80e8e7f2bf.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "home-manager": {
+        "branch": "master",
+        "description": "Manage a user environment using Nix",
+        "homepage": "https://rycee.gitlab.io/home-manager/",
+        "owner": "rycee",
+        "repo": "home-manager",
+        "rev": "708cb61e82bfd957409f71988284cd2099c48d29",
+        "sha256": "18amzm6x6nqvzpip1y2fp8y52kjca4ranic1b9s5ack0wi43d1gs",
+        "type": "tarball",
+        "url": "https://github.com/rycee/home-manager/archive/708cb61e82bfd957409f71988284cd2099c48d29.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "nixpkgs": {
+        "branch": "master",
+        "description": "Nix Packages collection",
+        "homepage": null,
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "6dc6c33a06d86ad0998dda9168202488b2643ec9",
+        "sha256": "0wcf553rfcgi43jcghp6pc97sd83dvf7vra2pwabvl9q909d0dx9",
+        "type": "tarball",
+        "url": "https://github.com/nixos/nixpkgs/archive/6dc6c33a06d86ad0998dda9168202488b2643ec9.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    }
+}
