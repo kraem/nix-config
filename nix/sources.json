@@ -5,10 +5,10 @@
         "homepage": null,
         "owner": "kraem",
         "repo": "dotfiles",
-        "rev": "f307222d3bf4de5cfd2d9ba356551f80e8e7f2bf",
-        "sha256": "1y9ndzz9nv02x9ypfgayk9s8pr8fn15jqhc2i1mi2sblx3w3ifnq",
+        "rev": "762e3bf31ae6a81ab4cf4ef63d16ea6d7c8fdf7a",
+        "sha256": "1ihbv4npma3fisjp9d5qd2cz70whfank5m1z8dhs5qn48zk0x29b",
         "type": "tarball",
-        "url": "https://github.com/kraem/dotfiles/archive/f307222d3bf4de5cfd2d9ba356551f80e8e7f2bf.tar.gz",
+        "url": "https://github.com/kraem/dotfiles/archive/762e3bf31ae6a81ab4cf4ef63d16ea6d7c8fdf7a.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "home-manager": {
@@ -29,10 +29,10 @@
         "homepage": null,
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "6dc6c33a06d86ad0998dda9168202488b2643ec9",
-        "sha256": "0wcf553rfcgi43jcghp6pc97sd83dvf7vra2pwabvl9q909d0dx9",
+        "rev": "c040b918cc1ee08c065d390fcfbea479bbcd89d2",
+        "sha256": "1ipab6x60c243m8h45329ypvr9lja1766vx7mq86xnkj5vmhsid7",
         "type": "tarball",
-        "url": "https://github.com/nixos/nixpkgs/archive/6dc6c33a06d86ad0998dda9168202488b2643ec9.tar.gz",
+        "url": "https://github.com/nixos/nixpkgs/archive/c040b918cc1ee08c065d390fcfbea479bbcd89d2.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }
