@@ -24,14 +24,14 @@
   documentation.nixos.enable = true;
 
   nix = {
-    #package = pkgs.nixFlakes;
+    package = pkgs.nixFlakes;
     nixPath = [
       "nixpkgs=${pkgs.path}"
     ];
-  #  extraOptions = ''
-  #    builders-use-substitutes = true
-  #    experimental-features = nix-command flakes
-  #  '';
+    extraOptions = ''
+      builders-use-substitutes = true
+      experimental-features = nix-command flakes
+    '';
   };
 
   nixpkgs = {

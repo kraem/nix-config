@@ -18,6 +18,7 @@ in
       ../modules/zfs.nix
 
       ../modules/sshd.nix
+      ../modules/morph.nix
       ../modules/network.nix
       ../modules/agents.nix
       ../overlays/neovim.nix
