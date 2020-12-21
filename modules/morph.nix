@@ -1,8 +1,8 @@
 { config, pkgs, ... }:
 let
-  sshPubKeys = (import ../secrets.nix).sshPubKeys;
-  hashedPasswords = (import ../secrets.nix).hashedPasswords;
-  binaryCachePubKeys = (import ../secrets.nix).binaryCachePubKeys;
+  sshPubKeys = (import ../secrets/secrets.nix).sshPubKeys;
+  hashedPasswords = (import ../secrets/secrets.nix).hashedPasswords;
+  binaryCachePubKeys = (import ../secrets/secrets.nix).binaryCachePubKeys;
 in
 {
 

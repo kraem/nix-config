@@ -4,30 +4,27 @@
   inputs = {
     nix.url = "github:NixOS/nix";
     nixpkgs.url = "github:NixOS/nixpkgs/master";
-
     flake-utils.url = "github:numtide/flake-utils";
     home-manager.url = "github:rycee/home-manager";
     flake-compat = {
       url = "github:edolstra/flake-compat";
       flake = false;
     };
-
     deploy-rs = {
       type = "github";
       owner = "kraem";
       repo = "deploy-rs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    # Services
-    #dust.url = "git+https://git.sr.ht/~mkaito/dust";
-    #snm = {
-    #  url = "gitlab:simple-nixos-mailserver/nixos-mailserver/nixos-20.09";
-    #  flake = false;
-    #};
+    sops-nix.url = "github:Mic92/sops-nix";
   };
 
-  outputs = { self, nixpkgs, flake-utils, deploy-rs, ... }@inputs:
+  outputs = { self,
+    nixpkgs,
+    flake-utils,
+    deploy-rs,
+    sops-nix,
+    ... }@inputs:
   let
     inherit (nixpkgs.lib) foldl' recursiveUpdate nixosSystem mapAttrs;
 
@@ -41,6 +38,7 @@
 
       modules = [
         module
+        sops-nix.nixosModules.sops
       ];
 
       inherit system;
@@ -61,8 +59,6 @@
               sshOpts = [ "-p" "25001" ];
               #magicRollback = false;
               path = deploy-rs.lib.${system}.activate.nixos
-                # don't know where i got this from..
-                #self.nixosConfigurations.ursa.config.system.build.toplevel;
                 self.nixosConfigurations.ursa;
             };
           };

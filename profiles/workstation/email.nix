@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 let
-  fullname = (import ../../secrets.nix).fullname;
-  email = (import ../../secrets.nix).email;
+  fullname = (import ../../secrets/secrets.nix).fullname;
+  email = (import ../../secrets/secrets.nix).email;
   dotfiles = ((import ../../nix).dotfiles);
 
   home = config.users.users.kraem.home;

@@ -7,7 +7,7 @@ let
     mkdir $out
     sed 's/EMAIL/${email}/g' ${gitconfig-orig} > $out/gitconfig
   '';
-  email = (import ../../secrets.nix).email.gitEmailAddress;
+  email = (import ../../secrets/secrets.nix).email.gitEmailAddress;
 in
 
 {
