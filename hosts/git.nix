@@ -22,8 +22,8 @@ in
     hashedPassword =
       secrets.hashedPasswords.userGit;
     openssh.authorizedKeys.keys = [
-      secrets.sshPubKeys.ursa
-      secrets.sshPubKeys.frigate
+      secrets.ssh.pubKeys.ursa
+      secrets.ssh.pubKeys.frigate
     ];
     group = "git";
     isNormalUser = true;

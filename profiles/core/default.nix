@@ -47,6 +47,7 @@
     fd
     fzf
     git
+    git-crypt
     gotop
     htop
     lsof

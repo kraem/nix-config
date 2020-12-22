@@ -16,7 +16,7 @@ in
   users.extraUsers.synapsebak = {
     isNormalUser = true;
     openssh.authorizedKeys.keys = [
-      secrets.sshPubKeys.synapsebak
+      secrets.ssh.pubKeys.synapsebak
     ];
     group = "synapsebak";
     extraGroups = [

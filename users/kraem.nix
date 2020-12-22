@@ -8,8 +8,8 @@ in
     hashedPassword =
       secrets.hashedPasswords.userKraem;
     openssh.authorizedKeys.keys = [
-      secrets.sshPubKeys.ursa
-      secrets.sshPubKeys.frigate
+      secrets.ssh.pubKeys.ursa
+      secrets.ssh.pubKeys.frigate
     ];
     isNormalUser = true;
     uid = 1000;

@@ -18,7 +18,7 @@ in
 
   networking = {
     hostName = "synapse";
-    domain = secrets.synapse.domain;
+    domain = secrets.hosts.synapse.domain;
   };
 
 }

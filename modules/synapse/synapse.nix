@@ -79,7 +79,7 @@ in
 
   # the db-name "matrix-synapse" can be changed in services.postgresql.database_name
   services.postgresql.initialScript = pkgs.writeText "synapse-init.sql" ''
-    CREATE ROLE "matrix-synapse" WITH LOGIN PASSWORD ${secrets.synapse.postgresLoginPw};
+    CREATE ROLE "matrix-synapse" WITH LOGIN PASSWORD ${secrets.hosts.synapse.postgresLoginPw};
     CREATE DATABASE "matrix-synapse" WITH OWNER "matrix-synapse"
       TEMPLATE template0
       LC_COLLATE = "C"
@@ -214,7 +214,7 @@ in
       metrics_path = "/_synapse/metrics";
       static_configs = [{
         targets = [ "localhost:9002" ];
-        labels = { alias = "prometheus.synapse.${secrets.synapse.domain}"; };
+        labels = { alias = "prometheus.synapse.${secrets.hosts.synapse.domain}"; };
       }];
     }];
   };

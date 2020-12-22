@@ -1,5 +1,7 @@
 { config, pkgs, ... }:
-
+let
+  secrets = import ../secrets/secrets.nix;
+in
 {
 
   services.openssh = {
@@ -8,7 +10,7 @@
     passwordAuthentication = false;
     challengeResponseAuthentication = false;
     permitRootLogin = "no";
-    ports = [ 25001 ];
+    ports = [ secrets.ssh.port ];
     openFirewall = true;
     # sshd is now only working over protocol 2 so the config line below is not needed
     #extraConfig = ''Protocol 2'';

@@ -20,7 +20,7 @@ in
       "wheel"
     ];
     openssh.authorizedKeys.keys = [
-      secrets.sshPubKeys.ursa
+      secrets.ssh.pubKeys.ursa
     ];
     hashedPassword = secrets.hashedPasswords.userMorph;
   };

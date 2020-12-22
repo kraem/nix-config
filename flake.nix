@@ -3,7 +3,7 @@
 
   inputs = {
     nix.url = "github:NixOS/nix";
-    nixpkgs.url = "github:NixOS/nixpkgs/master";
+    nixpkgs.url = "github:NixOS/nixpkgs?rev=a5a819e059ae7db805e0a5cc038bb6510be099ad";
     flake-utils.url = "github:numtide/flake-utils";
     home-manager.url = "github:rycee/home-manager";
     flake-compat = {
@@ -35,6 +35,8 @@
     # We only evaluate server configs in the context of the system architecture
     # they are deployed to
     system = "x86_64-linux";
+    secrets = import ./secrets/secrets.nix;
+    sshPort = (builtins.toString secrets.ssh.port);
     mkSystem = module: nixosSystem {
       specialArgs = {
         inherit inputs;
@@ -53,16 +55,17 @@
 
         nixosConfigurations.ursa = mkSystem ./hosts/ursa.nix;
         nixosConfigurations.lb1 = mkSystem ./hosts/lb1.nix;
+        nixosConfigurations.git = mkSystem ./hosts/git.nix;
+        nixosConfigurations.synapse = mkSystem ./hosts/synapse.nix;
 
         # Deployment expressions
         deploy.nodes.ursa = {
-          hostname = "localhost";
+          hostname = "${secrets.hosts.ursa.domain}";
           profiles = {
             system = rec {
               sshUser = "morph";
               user = "root";
-              sshOpts = [ "-p" "25001" ];
-              #magicRollback = false;
+              sshOpts = [ "-p" "${sshPort}" ];
               path = deploy-rs.lib.${system}.activate.nixos
                 self.nixosConfigurations.ursa;
             };
@@ -70,15 +73,40 @@
         };
 
         deploy.nodes.lb1 = {
-          hostname = "192.168.1.20";
+          hostname = "${secrets.hosts.lb1.domain}";
           profiles = {
             system = rec {
               sshUser = "morph";
               user = "root";
-              sshOpts = [ "-p" "25001" ];
-              #magicRollback = false;
+              sshOpts = [ "-p" "${sshPort}" ];
               path = deploy-rs.lib.${system}.activate.nixos
                 self.nixosConfigurations.lb1;
+            };
+          };
+        };
+
+        deploy.nodes.git = {
+          hostname = "${secrets.hosts.git.domain}";
+          profiles = {
+            system = rec {
+              sshUser = "morph";
+              user = "root";
+              sshOpts = [ "-p" "${sshPort}" ];
+              path = deploy-rs.lib.${system}.activate.nixos
+                self.nixosConfigurations.git;
+            };
+          };
+        };
+
+        deploy.nodes.synapse = {
+          hostname = "${secrets.hosts.synapse.domain}";
+          profiles = {
+            system = rec {
+              sshUser = "morph";
+              user = "root";
+              sshOpts = [ "-p" "${sshPort}" ];
+              path = deploy-rs.lib.${system}.activate.nixos
+                self.nixosConfigurations.synapse;
             };
           };
         };
