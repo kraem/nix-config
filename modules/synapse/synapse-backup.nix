@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 let
-  sshPubKeys = (import ../../secrets.nix).sshPubKeys;
+  secrets = (import ../../secrets/secrets.nix);
 in
 
 {
@@ -16,7 +16,7 @@ in
   users.extraUsers.synapsebak = {
     isNormalUser = true;
     openssh.authorizedKeys.keys = [
-      sshPubKeys.synapsebak
+      secrets.sshPubKeys.synapsebak
     ];
     group = "synapsebak";
     extraGroups = [

@@ -1,13 +1,11 @@
 { config, pkgs, ... }:
 let
-  sshPubKeys = (import ../secrets/secrets.nix).sshPubKeys;
-  hashedPasswords = (import ../secrets/secrets.nix).hashedPasswords;
-  binaryCachePubKeys = (import ../secrets/secrets.nix).binaryCachePubKeys;
+  secrets = (import ../secrets/secrets.nix);
 in
 {
 
   nix.binaryCachePublicKeys = [
-    binaryCachePubKeys.ursa
+    secrets.binaryCachePubKeys.ursa
   ];
 
   users.groups.morph = { };
@@ -22,9 +20,9 @@ in
       "wheel"
     ];
     openssh.authorizedKeys.keys = [
-      sshPubKeys.ursa
+      secrets.sshPubKeys.ursa
     ];
-    hashedPassword = hashedPasswords.userMorph;
+    hashedPassword = secrets.hashedPasswords.userMorph;
   };
 
 }

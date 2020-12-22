@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 # TODO make module out of this
 let
-  synapse = (import ../../secrets/secrets.nix).synapse;
+  secrets = (import ../../secrets/secrets.nix);
   sshPort = (builtins.toString (builtins.head config.services.openssh.ports));
   sshKeyPath = "/secrets/lb1/ssh/synapsebak_rsa";
   synapseBakUser = "synapsebak";
@@ -37,7 +37,7 @@ in
           Type = "oneshot";
         };
         script = ''
-          ${pkgs.rsync}/bin/rsync -v -a -e "ssh -i ${sshKeyPath} -p ${sshPort} -v" ${synapseBakUser}@${synapse.domain}:${bakPathRemote}/* ${bakPathLocal}
+          ${pkgs.rsync}/bin/rsync -v -a -e "ssh -i ${sshKeyPath} -p ${sshPort} -v" ${synapseBakUser}@${secrets.synapse.domain}:${bakPathRemote}/* ${bakPathLocal}
         '';
         path = [
           pkgs.coreutils

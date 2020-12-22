@@ -1,7 +1,6 @@
 { config, pkgs, ... }:
 let
-  sshPubKeys = (import ../secrets.nix).sshPubKeys;
-  hashedPasswords = (import ../secrets.nix).hashedPasswords;
+  secrets = (import ../secrets/secrets.nix);
 in
 {
   imports = [
@@ -21,10 +20,10 @@ in
 
   users.extraUsers.git = {
     hashedPassword =
-      hashedPasswords.userGit;
+      secrets.hashedPasswords.userGit;
     openssh.authorizedKeys.keys = [
-      sshPubKeys.ursa
-      sshPubKeys.frigate
+      secrets.sshPubKeys.ursa
+      secrets.sshPubKeys.frigate
     ];
     group = "git";
     isNormalUser = true;

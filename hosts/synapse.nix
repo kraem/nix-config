@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 let
-  synapse = (import ../secrets.nix).synapse;
+  secrets = (import ../secrets/secrets.nix);
 in
 {
   imports = [
@@ -18,7 +18,7 @@ in
 
   networking = {
     hostName = "synapse";
-    domain = synapse.domain;
+    domain = secrets.synapse.domain;
   };
 
 }

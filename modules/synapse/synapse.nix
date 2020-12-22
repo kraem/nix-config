@@ -4,8 +4,7 @@
 # https://nixos.org/manual/nixos/stable/index.html#module-services-matrix-synapse
 let
 
-  synapse = (import ../../secrets.nix).synapse;
-  acmeEmail = (import ../../secrets.nix).email.gmailFull;
+  secrets = (import ../../secrets/secrets.nix);
 
   fqdn =
     let
@@ -80,7 +79,7 @@ in
 
   # the db-name "matrix-synapse" can be changed in services.postgresql.database_name
   services.postgresql.initialScript = pkgs.writeText "synapse-init.sql" ''
-    CREATE ROLE "matrix-synapse" WITH LOGIN PASSWORD ${synapse.postgresLoginPw};
+    CREATE ROLE "matrix-synapse" WITH LOGIN PASSWORD ${secrets.synapse.postgresLoginPw};
     CREATE DATABASE "matrix-synapse" WITH OWNER "matrix-synapse"
       TEMPLATE template0
       LC_COLLATE = "C"
@@ -91,7 +90,7 @@ in
   # https://github.com/NixOS/nixpkgs/issues/81634
   #security.acme.validMinDays = 999;
 
-  security.acme.email = acmeEmail;
+  security.acme.email = secrets.email.gmailFull;
   security.acme.acceptTerms = true;
 
   services.nginx = {
@@ -215,7 +214,7 @@ in
       metrics_path = "/_synapse/metrics";
       static_configs = [{
         targets = [ "localhost:9002" ];
-        labels = { alias = "prometheus.synapse.${synapse.domain}"; };
+        labels = { alias = "prometheus.synapse.${secrets.synapse.domain}"; };
       }];
     }];
   };

@@ -1,7 +1,7 @@
 { pkgs, config, lib, ... }:
 
 let
-  acmeEmail = (import ../../secrets.nix).email.gmailFull;
+  secrets = (import ../../secrets/secrets.nix);
 
   fqdn =
     let
@@ -15,7 +15,7 @@ in
 
   networking.firewall.allowedTCPPorts = [ 80 443 ];
 
-  security.acme.email = acmeEmail;
+  security.acme.email = secrets.email.gmailFull;
   security.acme.acceptTerms = true;
 
   systemd.tmpfiles.rules = [

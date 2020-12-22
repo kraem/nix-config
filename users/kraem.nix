@@ -1,16 +1,15 @@
 { config, pkgs, ... }:
 let
-  sshPubKeys = (import ../secrets/secrets.nix).sshPubKeys;
-  hashedPasswords = (import ../secrets/secrets.nix).hashedPasswords;
+  secrets = (import ../secrets/secrets.nix);
 in
 {
 
   users.users.kraem = {
     hashedPassword =
-      hashedPasswords.userKraem;
+      secrets.hashedPasswords.userKraem;
     openssh.authorizedKeys.keys = [
-      sshPubKeys.ursa
-      sshPubKeys.frigate
+      secrets.sshPubKeys.ursa
+      secrets.sshPubKeys.frigate
     ];
     isNormalUser = true;
     uid = 1000;
