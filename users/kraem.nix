@@ -3,7 +3,6 @@ let
   secrets = (import ../secrets/secrets.nix);
 in
 {
-
   users.users.kraem = {
     hashedPassword =
       secrets.hashedPasswords.userKraem;
@@ -18,4 +17,8 @@ in
     ];
   };
 
+  home-manager.users.kraem = { ... }: {
+    programs.direnv.enable = true;
+    programs.direnv.enableNixDirenvIntegration = true;
+  };
 }
