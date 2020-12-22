@@ -6,7 +6,6 @@
     ./tmux.nix
     ../../users/kraem.nix
     ../../overlays/neovim.nix
-    (import (import ../../nix).home-manager)
   ];
 
   boot.cleanTmpDir = true;

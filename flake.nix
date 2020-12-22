@@ -16,14 +16,18 @@
       repo = "deploy-rs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    sops-nix.url = "github:Mic92/sops-nix";
+    dotfiles = {
+      url = "github:kraem/dotfiles";
+      flake = false;
+    };
   };
 
   outputs = { self,
     nixpkgs,
     flake-utils,
     deploy-rs,
-    sops-nix,
+    home-manager,
+    dotfiles,
     ... }@inputs:
   let
     inherit (nixpkgs.lib) foldl' recursiveUpdate nixosSystem mapAttrs;
@@ -38,7 +42,7 @@
 
       modules = [
         module
-        sops-nix.nixosModules.sops
+        home-manager.nixosModules.home-manager
       ];
 
       inherit system;

@@ -1,6 +1,6 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 let
-  dotfiles = ((import ../../../nix).dotfiles);
+  dotfiles = inputs.dotfiles;
 in
 {
   imports = [

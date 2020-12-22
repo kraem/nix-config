@@ -23,6 +23,22 @@
         "type": "github"
       }
     },
+    "dotfiles": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1608245622,
+        "narHash": "sha256-K4kO5kfE4qJhQz/UMq1ykIPzmWi4tHSljm6oei3ZC8Y=",
+        "owner": "kraem",
+        "repo": "dotfiles",
+        "rev": "762e3bf31ae6a81ab4cf4ef63d16ea6d7c8fdf7a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kraem",
+        "repo": "dotfiles",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -189,82 +205,15 @@
         "type": "github"
       }
     },
-    "nixpkgs_4": {
-      "locked": {
-        "lastModified": 1608577129,
-        "narHash": "sha256-DIF7EXMkAac6mSiRSS3yP+VxgiBBmxmmRt+n3NSd3lc=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "a5a819e059ae7db805e0a5cc038bb6510be099ad",
-        "type": "github"
-      },
-      "original": {
-        "id": "nixpkgs",
-        "type": "indirect"
-      }
-    },
-    "nixpkgs_5": {
-      "locked": {
-        "lastModified": 1604350474,
-        "narHash": "sha256-zz0g0YmgJJqSd9032LWJAjHUeEIgvbXVoN2y8SCBQ9I=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "0da76dab4c2acce5ebf404c400d38ad95c52b152",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixpkgs-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
         "deploy-rs": "deploy-rs",
+        "dotfiles": "dotfiles",
         "flake-compat": "flake-compat_2",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
         "nix": "nix",
-        "nixpkgs": "nixpkgs_3",
-        "secrets": "secrets",
-        "sops-nix": "sops-nix"
-      }
-    },
-    "secrets": {
-      "inputs": {
-        "nixpkgs": "nixpkgs_4"
-      },
-      "locked": {
-        "lastModified": 1608577570,
-        "narHash": "sha256-EFYYWY4PHxxZRWqUV7MDaiFhy9sDwcbdeHQu/iaR2D8=",
-        "ref": "master",
-        "rev": "9bbf3ed3775cd772d95d0f5e0df9f915b900522c",
-        "revCount": 1,
-        "type": "git",
-        "url": "ssh://git@git.kraem.xyz/var/lib/git/nix-secrets"
-      },
-      "original": {
-        "type": "git",
-        "url": "ssh://git@git.kraem.xyz/var/lib/git/nix-secrets"
-      }
-    },
-    "sops-nix": {
-      "inputs": {
-        "nixpkgs": "nixpkgs_5"
-      },
-      "locked": {
-        "lastModified": 1608002285,
-        "narHash": "sha256-NRTuYRlVUFMyCGQK3CGxzyvIiZY6PnnKAG5B/QLK8M4=",
-        "owner": "Mic92",
-        "repo": "sops-nix",
-        "rev": "797e7552776441a018e0a7299b5ba647aed40ffe",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Mic92",
-        "repo": "sops-nix",
-        "type": "github"
+        "nixpkgs": "nixpkgs_3"
       }
     },
     "utils": {

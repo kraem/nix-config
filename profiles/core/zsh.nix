@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 let
   powerlevel-init = ''
     source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
@@ -15,7 +15,7 @@ let
     ${powerlevel-conf}
   '';
 
-  dotfiles = ((import ../../nix).dotfiles);
+  dotfiles = inputs.dotfiles;
 
   powerlevel-conf =
     builtins.readFile (dotfiles + "/zsh/p10k.zsh");

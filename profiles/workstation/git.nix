@@ -1,8 +1,8 @@
-{ config, pkgs, sources, ... }:
+{ config, pkgs, inputs, ... }:
 
 # not really needed - just saving as a proof of concept..
 let
-  gitconfig-orig = ((import ../../nix).dotfiles + "/git/gitconfig");
+  gitconfig-orig = inputs.dotfiles + "/git/gitconfig";
   gitconfig = pkgs.runCommand "sed" { } ''
     mkdir $out
     sed 's/EMAIL/${email}/g' ${gitconfig-orig} > $out/gitconfig

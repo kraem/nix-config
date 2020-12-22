@@ -1,14 +1,12 @@
-{ config, pkgs, ... }:
-
+{ config, pkgs, inputs, ... }:
 let
-  dotfiles = ((import ../../nix).dotfiles);
+  dotfiles = inputs.dotfiles;
 in
-
 {
   environment.systemPackages = with pkgs; [
     tmux
   ];
   home-manager.users.kraem = { ... }: {
-    home.file.".tmux.conf".source = (dotfiles + "/tmux/tmux.conf");
+    home.file.".tmux.conf".source = dotfiles + "/tmux/tmux.conf";
   };
 }

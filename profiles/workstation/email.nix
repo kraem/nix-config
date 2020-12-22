@@ -1,8 +1,8 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 let
   fullname = (import ../../secrets/secrets.nix).fullname;
   email = (import ../../secrets/secrets.nix).email;
-  dotfiles = ((import ../../nix).dotfiles);
+  dotfiles = inputs.dotfiles;
 
   home = config.users.users.kraem.home;
   group = config.users.users.kraem.group;
