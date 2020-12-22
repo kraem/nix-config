@@ -52,6 +52,7 @@
        {
 
         nixosConfigurations.ursa = mkSystem ./hosts/ursa.nix;
+        nixosConfigurations.lb1 = mkSystem ./hosts/lb1.nix;
 
         # Deployment expressions
         deploy.nodes.ursa = {
@@ -64,6 +65,20 @@
               #magicRollback = false;
               path = deploy-rs.lib.${system}.activate.nixos
                 self.nixosConfigurations.ursa;
+            };
+          };
+        };
+
+        deploy.nodes.lb1 = {
+          hostname = "192.168.1.20";
+          profiles = {
+            system = rec {
+              sshUser = "morph";
+              user = "root";
+              sshOpts = [ "-p" "25001" ];
+              #magicRollback = false;
+              path = deploy-rs.lib.${system}.activate.nixos
+                self.nixosConfigurations.lb1;
             };
           };
         };

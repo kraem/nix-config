@@ -5,8 +5,7 @@
 { config, pkgs, ... }:
 
 let
-  sshPubKeys = (import ../secrets.nix).sshPubKeys;
-  secrets = (import ../secrets.nix);
+  secrets = (import ../secrets/secrets.nix);
 in
 
 {

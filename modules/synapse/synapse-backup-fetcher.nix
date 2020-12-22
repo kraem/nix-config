@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 # TODO make module out of this
 let
-  synapse = (import ../../secrets.nix).synapse;
+  synapse = (import ../../secrets/secrets.nix).synapse;
   sshPort = (builtins.toString (builtins.head config.services.openssh.ports));
   sshKeyPath = "/secrets/lb1/ssh/synapsebak_rsa";
   synapseBakUser = "synapsebak";
