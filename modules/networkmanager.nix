@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   networking.networkmanager.enable = true;
@@ -23,9 +23,10 @@
   # to override ExecStart we need to define it as an empty string first..
   # https://github.com/NixOS/nixpkgs/issues/63703#issuecomment-504836857
 
-  systemd.services.NetworkManager-wait-online.serviceConfig.ExecStart = [
-    ""
-    "${pkgs.networkmanager}/bin/nm-online -q -t 5"
-  ];
+  #systemd.services.NetworkManager-wait-online.serviceConfig.ExecStart = [
+  #  ""
+  #  "${pkgs.networkmanager}/bin/nm-online -q -t 5"
+  #];
+  systemd.services.NetworkManager-wait-online.enable = lib.mkForce false;
 
 }
