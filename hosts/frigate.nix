@@ -10,7 +10,7 @@
       # Include the results of the hardware scan.
       ../hardware/frigate.nix
       ../hardware/frigate-extra.nix
-      ./frigate-services.nix
+      #./frigate-services.nix
 
       ../profiles/core
       ../profiles/workstation
@@ -39,6 +39,69 @@
     zfs rollback -r rpool/local/root@blank
   '';
 
+  # TODO: extract these
+  systemd.services.lockonlidclose =
+       {
+         before = [ "suspend.target" ];
+         wantedBy = [ "suspend.target" ];
+         script =
+           ''
+	     set -eu
+             echo locking
+             xautolock -locknow
+             echo locking done
+           '';
+	 postStart = "sleep 1";
+         environment = { DISPLAY = ":0"; };
+         serviceConfig.Type = "forking";
+	 # FIXME: modularise this with home-manager?
+         serviceConfig.User = "kraem";
+         path = [ pkgs.coreutils pkgs.bash pkgs.xautolock pkgs.i3lock ];
+       };
+
+  systemd.services.disablewakeups =
+       { after = [ "suspend.target" "hibernate.target" "hybrid-sleep.target" ];
+         script =
+           ''
+	     set -eu
+             for d in $(cat /proc/acpi/wakeup | sed 1d | grep enabled | grep -v LID0 | cut -d' ' -f1); do
+               echo $d > /proc/acpi/wakeup
+             done
+           '';
+         serviceConfig.Type = "oneshot";
+         path = [ pkgs.coreutils pkgs.bash ];
+       };
+
+  powerManagement.powerDownCommands = ''
+    ${pkgs.coreutils}/bin/echo unloading brcmfmac
+    ${pkgs.kmod}/bin/lsmod | ${pkgs.gnugrep}/bin/grep -q "^brcmfmac" && ${pkgs.kmod}/bin/rmmod -f -v brcmfmac
+    ${pkgs.coreutils}/bin/echo unloading bluetooth
+    ${pkgs.kmod}/bin/lsmod | ${pkgs.gnugrep}/bin/grep -q "^blueooth" && ${pkgs.kmod}/bin/rmmod -f -v bluetooth
+    ${pkgs.coreutils}/bin/echo done
+  '';
+  powerManagement.resumeCommands = ''
+    ${pkgs.coreutils}/bin/echo loading brcmfmac
+    ${pkgs.kmod}/bin/modprobe -v brcmfmac
+    ${pkgs.coreutils}/bin/echo loading bluetooth
+    ${pkgs.kmod}/bin/modprobe -v bluetooth
+    ${pkgs.coreutils}/bin/echo done
+  '';
+
+  powerManagement = {
+    enable = true;
+    cpufreq.max = 2400000;
+    cpuFreqGovernor = "performance";
+  };
+
+  services = {
+    # TODO: research HoldOffTimeoutSec more
+    logind.extraConfig = ''
+      HandlePowerKey=ignore
+      HoldoffTimeoutSec=5s
+    '';
+    #logind.lidSwitch = "suspend";
+  };
+
   environment.etc = {
     "NetworkManager/system-connections" = {
       source = "/persist/etc/NetworkManager/system-connections/";
@@ -62,6 +125,7 @@
   };
 
   boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot.consoleMode = "max";
   boot.loader.efi.canTouchEfiVariables = true;
 
   #boot.loader.systemd-boot.consoleMode = "max";
@@ -77,10 +141,9 @@
   networking.useDHCP = false;
   networking.interfaces.wlp3s0.useDHCP = true;
 
-  services.tlp.enable = true;
+  services.tlp.enable = false;
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  #boot.kernelPackages = pkgs.linuxPackages;
 
   users.defaultUserShell = pkgs.zsh;
 
@@ -103,15 +166,6 @@
       allow id 05ac:12a8 serial "099bba55f1be70d22f8d93b54d30761b70cddd41" name "iPhone" hash "DpWH3YCbEV6LQXC2T3L9+xqenKL1M+J9PL/2kklDxWg=" parent-hash "jEP/6WzviqdJ5VSeTUY8PatCNBKeaREvo2OqdplND/o=" with-interface { 06:01:01 01:01:00 01:02:00 01:02:00 03:00:00 06:01:01 ff:fe:02 06:01:01 ff:fe:02 ff:fd:01 ff:fd:01 ff:fd:01 } with-connect-type "hotplug"
     '';
 
-    logind.extraConfig = ''
-      HandlePowerKey=ignore
-    '';
-
-  };
-
-  powerManagement = {
-    cpufreq.max = 2400000;
-    cpuFreqGovernor = "performance";
   };
 
   hardware.cpu.intel.updateMicrocode = true;
