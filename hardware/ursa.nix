@@ -18,6 +18,7 @@
     {
       device = "rpool/local/root";
       fsType = "zfs";
+      neededForBoot = true;
     };
 
   fileSystems."/boot" =
@@ -42,6 +43,7 @@
     {
       device = "rpool/safe/persist";
       fsType = "zfs";
+      neededForBoot = true;
     };
 
   swapDevices = [ ];

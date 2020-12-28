@@ -6,6 +6,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs?rev=a5a819e059ae7db805e0a5cc038bb6510be099ad";
     staging.url = "github:NixOS/nixpkgs/staging";
     flake-utils = { url = "github:numtide/flake-utils"; inputs.nixpkgs.follows = "nixpkgs"; };
+    impermanence = { url = "github:nix-community/impermanence"; inputs.nixpkgs.follows = "nixpkgs"; };
     home-manager = { url = "github:rycee/home-manager"; inputs.nixpkgs.follows = "nixpkgs"; };
     deploy-rs = { url = "git+https://github.com/kraem/deploy-rs?ref=fix/magic-rollback-pseudo-terminal"; inputs.nixpkgs.follows = "nixpkgs"; };
     dotfiles = { url = "github:kraem/dotfiles"; flake = false; };
@@ -15,6 +16,7 @@
     nixpkgs,
     staging,
     flake-utils,
+    impermanence,
     deploy-rs,
     home-manager,
     dotfiles,
@@ -38,6 +40,7 @@
           modules = [
             ({ systemd.package = (import staging { inherit system; }).systemd; })
             module
+            impermanence.nixosModules.impermanence
             home-manager.nixosModules.home-manager
           ];
 

@@ -13,7 +13,8 @@ in
       type = types.attrs;
       default = {};
     };
-    # TODO assert these
+    # TODO: assert these
+    # TODO: just leave this as the default with impermanence..
     syncthingDir = lib.mkOption {
       type = types.path;
       default = "";

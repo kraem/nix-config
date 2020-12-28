@@ -26,6 +26,8 @@ in
       ../modules/syncthing
     ];
 
+  # TODO: leave syncthingDir as the default syncthing module dir
+  # and use impermanence instead
   my.syncthing = {
     enable = true;
     syncthingDir = "/persist/var/lib/syncthing";
@@ -34,9 +36,22 @@ in
     syncthingIDs = secrets.syncthingIDs;
   };
 
+  # TODO: move to persistence
   systemd.tmpfiles.rules = [
     "L ${config.users.users.kraem.home}/notes 770 syncthing syncthing - ${config.my.syncthing.syncthingDir}/notes"
   ];
+
+  environment.persistence."/persist" = {
+    directories = [
+      "/var/log"
+
+      "/etc/NetworkManager/system-connections"
+      "/etc/ssh"
+    ];
+    files = [
+      "/etc/machine-id"
+    ];
+  };
 
   hardware.enableAllFirmware = true;
 
@@ -53,26 +68,14 @@ in
   };
 
   # for signing binary cache
+  # TODO: move to persistence
   nix.extraOptions = "secret-key-files = /persist/etc/nix/key.private";
 
   boot.initrd.postDeviceCommands = lib.mkAfter ''
     zfs rollback -r rpool/local/root@blank
   '';
 
-  environment.etc = {
-    "NetworkManager/system-connections" = {
-      source = "/persist/etc/NetworkManager/system-connections/";
-    };
-    "machine-id" = {
-      source = "/persist/etc/machine-id";
-    };
-    #"nix/nix.conf" = lib.mkForce {
-    #  source = "/persist/etc/nix.conf";
-    #};
-  };
-
   boot.kernelPackages = pkgs.linuxPackages_latest;
-
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;

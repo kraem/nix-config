@@ -51,6 +51,16 @@
     #};
   };
 
+  services.openssh = {
+    hostKeys = [
+      {
+        path = "/persist/etc/ssh/frigate_rsa_key";
+        type = "rsa";
+        bits = 4096;
+      }
+    ];
+  };
+
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
