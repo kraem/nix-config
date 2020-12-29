@@ -3,37 +3,60 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, lib, ... }:
-
+let
+  secrets = (import ../secrets/secrets.nix);
+in
 {
   imports =
     [
       # Include the results of the hardware scan.
       ../hardware/frigate.nix
       ../hardware/frigate-extra.nix
-      #./frigate-services.nix
 
       ../profiles/core
       ../profiles/workstation
+      ../modules/zfs.nix
 
       ../modules/network.nix
       ../modules/morph.nix
       ../modules/sshd.nix
 
       ../modules/agents.nix
-      ../modules/docker.nix
-      ../modules/hue.nix
-      ../modules/aws.nix
-      ../modules/zfs.nix
-      ../modules/emacs.nix
-
       ../overlays/neovim.nix
+
+      ../modules/syncthing
     ];
 
-  # This value determines the NixOS release with which your system is to be
-  # compatible, in order to avoid breaking some software such as database
-  # servers. You should change this only after NixOS release notes say you
-  # should.
-  system.stateVersion = "21.03"; # Did you read the comment?
+  # TODO: leave syncthingDir as the default syncthing module dir
+  # and use impermanence instead
+  my.syncthing = {
+    enable = false;
+    syncthingDir = "/persist/var/lib/syncthing";
+    key = "/persist/secrets/ursa/syncthing/key.pem";
+    cert = "/persist/secrets/ursa/syncthing/cert.pem";
+    syncthingIDs = secrets.syncthingIDs;
+  };
+
+  # TODO: move to persistence
+  #systemd.tmpfiles.rules = [
+  #  "L ${config.users.users.kraem.home}/notes 770 syncthing syncthing - ${config.my.syncthing.syncthingDir}/notes"
+  #];
+
+  environment.persistence."/persist" = {
+    directories = [
+      "/var/log"
+
+      "/etc/NetworkManager/system-connections"
+      "/etc/ssh"
+    ];
+    files = [
+      "/etc/machine-id"
+    ];
+  };
+
+  hardware.enableAllFirmware = true;
+
+  nixpkgs.config.allowUnfree = true;
 
   boot.initrd.postDeviceCommands = lib.mkAfter ''
     zfs rollback -r rpool/local/root@blank
@@ -102,18 +125,6 @@
     #logind.lidSwitch = "suspend";
   };
 
-  environment.etc = {
-    "NetworkManager/system-connections" = {
-      source = "/persist/etc/NetworkManager/system-connections/";
-    };
-    "machine-id" = {
-      source = "/persist/etc/machine-id";
-    };
-    #"nix/nix.conf" = lib.mkForce {
-    #  source = "/persist/etc/nix.conf";
-    #};
-  };
-
   services.openssh = {
     hostKeys = [
       {
@@ -178,5 +189,11 @@
     vaapiVdpau
     libvdpau-va-gl
   ];
+
+  # This value determines the NixOS release with which your system is to be
+  # compatible, in order to avoid breaking some software such as database
+  # servers. You should change this only after NixOS release notes say you
+  # should.
+  system.stateVersion = "21.03"; # Did you read the comment?
 
 }
