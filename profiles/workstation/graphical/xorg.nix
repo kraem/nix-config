@@ -14,8 +14,8 @@
     deluge
     discord
     #dunst
+    element-desktop
     #emacs
-    equilux-theme
     # for i3blocks volume-pulseaudio blocklet
     gettext
     feh
