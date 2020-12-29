@@ -17,9 +17,10 @@ in
       ../profiles/workstation
       ../modules/zfs.nix
 
-      ../modules/sshd.nix
-      ../modules/morph.nix
       ../modules/network.nix
+      ../modules/morph.nix
+      ../modules/sshd.nix
+
       ../modules/agents.nix
       ../overlays/neovim.nix
 
@@ -30,20 +31,19 @@ in
   # and use impermanence instead
   my.syncthing = {
     enable = true;
-    syncthingDir = "/persist/var/lib/syncthing";
-    key = "/persist/secrets/ursa/syncthing/key.pem";
-    cert = "/persist/secrets/ursa/syncthing/cert.pem";
+    syncthingDir = "/var/lib/syncthing";
     syncthingIDs = secrets.syncthingIDs;
   };
 
   # TODO: move to persistence
   systemd.tmpfiles.rules = [
-    "L ${config.users.users.kraem.home}/notes 770 syncthing syncthing - ${config.my.syncthing.syncthingDir}/notes"
+    "L ${config.users.users.kraem.home}/notes 770 syncthing syncthing - ${config.services.syncthing.dataDir}/notes"
   ];
 
   environment.persistence."/persist" = {
     directories = [
       "/var/log"
+      "/var/lib/syncthing"
 
       "/etc/NetworkManager/system-connections"
       "/etc/ssh"

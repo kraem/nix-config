@@ -30,10 +30,8 @@ in
   # TODO: leave syncthingDir as the default syncthing module dir
   # and use impermanence instead
   my.syncthing = {
-    enable = false;
-    syncthingDir = "/persist/var/lib/syncthing";
-    key = "/persist/secrets/ursa/syncthing/key.pem";
-    cert = "/persist/secrets/ursa/syncthing/cert.pem";
+    enable = true;
+    syncthingDir = "/var/lib/syncthing";
     syncthingIDs = secrets.syncthingIDs;
   };
 
@@ -45,6 +43,7 @@ in
   environment.persistence."/persist" = {
     directories = [
       "/var/log"
+      "/var/lib/syncthing"
 
       "/etc/NetworkManager/system-connections"
       "/etc/ssh"

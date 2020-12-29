@@ -40,8 +40,6 @@ in
   my.syncthing = {
     enable = true;
     syncthingDir = "/data/enc/syncthing";
-    key = "/data/enc/secrets/lb1/syncthing/key.pem";
-    cert = "/data/enc/secrets/lb1/syncthing/cert.pem";
     syncthingIDs = secrets.syncthingIDs;
   };
 

@@ -13,17 +13,9 @@ in
       type = types.attrs;
       default = {};
     };
-    # TODO: assert these
-    # TODO: just leave this as the default with impermanence..
+    # TODO: leaving this until all hosts are using impermanence
+    # TODO: assert
     syncthingDir = lib.mkOption {
-      type = types.path;
-      default = "";
-    };
-    cert = lib.mkOption {
-      type = types.path;
-      default = "";
-    };
-    key = lib.mkOption {
       type = types.path;
       default = "";
     };
@@ -32,10 +24,6 @@ in
   config = mkIf cfg.enable
 
   {
-
-    systemd.tmpfiles.rules = [
-      "d ${cfg.syncthingDir} 0755 syncthing syncthing -"
-    ];
 
     users.users.kraem.extraGroups = [ "syncthing" ];
 
@@ -46,10 +34,9 @@ in
         enable = true;
         openDefaultPorts = true;
         systemService = true;
-        configDir = cfg.syncthingDir + "/config";
+        configDir = config.services.syncthing.dataDir + "/config";
+        dataDir = cfg.syncthingDir;
         declarative = {
-          cert = cfg.cert;
-          key = cfg.key;
           devices = {
             ursa = {
               id = cfg.syncthingIDs.ursa;
@@ -57,22 +44,25 @@ in
             lb1 = {
               id = cfg.syncthingIDs.lb1;
             };
+            frigate = {
+              id = cfg.syncthingIDs.frigate;
+            };
           };
           folders.tmp = {
-            devices =  [ "ursa" "lb1" ];
-            path = cfg.syncthingDir + "/tmp";
+            devices =  [ "ursa" "lb1" "frigate" ];
+            path = config.services.syncthing.dataDir + "/tmp";
           };
           folders.notes = {
-            devices =  [ "ursa" "lb1" ];
-            path = cfg.syncthingDir + "/notes";
+            devices =  [ "ursa" "lb1" "frigate" ];
+            path = config.services.syncthing.dataDir + "/notes";
           };
           folders.documents = {
-            devices =  [ "ursa" "lb1" ];
-            path = cfg.syncthingDir + "/documents";
+            devices =  [ "ursa" "lb1" "frigate" ];
+            path = config.services.syncthing.dataDir + "/documents";
           };
           folders.bin = {
-            devices =  [ "ursa" "lb1" ];
-            path = cfg.syncthingDir + "/bin";
+            devices =  [ "ursa" "lb1" "frigate" ];
+            path = config.services.syncthing.dataDir + "/bin";
           };
         };
       };
