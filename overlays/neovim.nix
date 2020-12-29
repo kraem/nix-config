@@ -22,7 +22,7 @@ in
             owner = "neovim";
             repo = "neovim";
             rev = "${version}";
-            sha256 = "013cibnl0myid8jrihpn4dd21sf8pcynnyhfg1xjaq3rmpjdii7p";
+            sha256 = "sha256-SBfrZuv82euOBZQ83CxRsM7/eHQpzezAhz064Nqg/fo=";
           };
         }
       );
