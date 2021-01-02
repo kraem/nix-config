@@ -36,9 +36,9 @@ in
   };
 
   # TODO: move to persistence
-  #systemd.tmpfiles.rules = [
-  #  "L ${config.users.users.kraem.home}/notes 770 syncthing syncthing - ${config.my.syncthing.syncthingDir}/notes"
-  #];
+  systemd.tmpfiles.rules = [
+    "L ${config.users.users.kraem.home}/notes 770 syncthing syncthing - ${config.my.syncthing.syncthingDir}/notes"
+  ];
 
   environment.persistence."/persist" = {
     directories = [
