@@ -1,9 +1,7 @@
 { config, pkgs, inputs, ... }:
-
 let
   dotfiles = inputs.dotfiles;
 in
-
 {
   services = {
     xserver = {
@@ -18,14 +16,7 @@ in
     xdg.configFile."sxhkd/sxhkdrc".source = (dotfiles + "/sxhkd/sxhkdrc");
   };
 
-  nixpkgs.overlays = [
-    (self: super: {
-      polybar = super.polybar.override { i3Support = true; pulseSupport = true; };
-    })
-  ];
-
   environment.systemPackages = with pkgs; [
-    polybar
     sxhkd
   ];
 }

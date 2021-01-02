@@ -6,6 +6,7 @@ in
   imports = [
     ./xorg.nix
     ./bspwm.nix
+    ./polybar.nix
     ./chromium.nix
     ./firefox.nix
     ./thunar.nix
