@@ -4,21 +4,12 @@
 
   environment.systemPackages = with pkgs; [
     alacritty
-    #apulse
     arandr
     arc-icon-theme
-    # https://github.com/NixOS/nixpkgs/pull/85253
-    # https://nixos.wiki/wiki/Chromium#Enable_GPU_accelerated_video_decoding_.28VA-API.29
-    # Overriding does not trigger a rebuild anymore! 🎉
-    (chromium.override { enableVaapi = true; })
     deluge
     discord
     element-desktop
-    #emacs
-    # for i3blocks volume-pulseaudio blocklet
-    gettext
     feh
-    firefox
     font-manager
     gnome3.adwaita-icon-theme
     gnome-themes-extra
@@ -29,12 +20,7 @@
     maim
     mpv
     pavucontrol
-    plano-theme
     pscircle
-    # For pinentry-gnome3
-    #pinentry_gnome
-    # Is this really needed?
-    #pinentry
     rofi
     rxvt_unicode
     scrot
@@ -86,17 +72,6 @@
       autoRepeatInterval = 10;
 
       displayManager.lightdm.enable = true;
-      displayManager.lightdm.greeters.mini = {
-        #enable = true;
-        user = "kraem";
-        extraConfig = ''
-          [greeter]
-          show-password-label = true
-          [greeter-theme]
-          background-image = ""
-          border-width = 1px
-        '';
-      };
 
       libinput = {
         enable = true;
