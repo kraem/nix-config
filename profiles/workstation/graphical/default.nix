@@ -7,6 +7,7 @@ in
     ./xorg.nix
     ./bspwm.nix
     ./polybar.nix
+    ./dunst.nix
     ./chromium.nix
     ./firefox.nix
     ./thunar.nix

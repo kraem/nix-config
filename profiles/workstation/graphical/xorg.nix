@@ -13,7 +13,6 @@
     (chromium.override { enableVaapi = true; })
     deluge
     discord
-    #dunst
     element-desktop
     #emacs
     # for i3blocks volume-pulseaudio blocklet
