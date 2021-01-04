@@ -21,6 +21,9 @@ in
 
       ../modules/network.nix
 
+      ../modules/wireguard/server
+      ../modules/unbound.nix
+
       ../modules/zfs.nix
 
       ../modules/syncthing
@@ -41,6 +44,13 @@ in
     enable = true;
     syncthingDir = "/data/enc/syncthing";
     syncthingIDs = secrets.syncthingIDs;
+  };
+
+  my.wireguardServer = {
+    enable = true;
+    serverExternalInterface = "enp5s0";
+    serverListenPort = secrets.wireguard.port;
+    serverPrivateKeyFile = "/data/enc/secrets/lb1/wg/priv.key";
   };
 
   services.jellyfin = {

@@ -21,6 +21,8 @@ in
       ../modules/morph.nix
       ../modules/sshd.nix
 
+      ../modules/wireguard/client
+
       ../modules/agents.nix
       ../overlays/neovim.nix
 
@@ -33,6 +35,17 @@ in
     enable = true;
     syncthingDir = "/var/lib/syncthing";
     syncthingIDs = secrets.syncthingIDs;
+  };
+
+  my.wireguardClient = {
+    enable = true;
+    serverEndpoint = secrets.hosts.lb1.domain;
+    serverPort = secrets.wireguard.port;
+    serverPublicKey = secrets.wireguard.pubKeys.lb1;
+    serverDns = "10.0.0.1";
+    allowedIPs = "0.0.0.0/0";
+    clientAddress = "10.0.0.2";
+    clientPrivateKeyFile = "/persist/secrets/ursa/wg/priv.key";
   };
 
   # TODO: move to persistence

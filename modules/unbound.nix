@@ -8,14 +8,14 @@
       "1.1.1.1"
     ];
     allowedAccess = [
-      "10.0.0.0/24"
+      "10.0.0.0/16"
       "192.168.1.0/16"
     ];
     interfaces = [
       "0.0.0.0"
     ];
     extraConfig = ''
-        local-data: "nebulae.lan A 10.0.0.1"
+      # local-data: "nebulae.lan A 10.0.0.1"
 
       #  interface: 0.0.0.0
       #  do-ip4: yes
