@@ -29,6 +29,13 @@ in
 
     systemd.services.syncthing.serviceConfig.UMask = "007";
 
+    # ugly workaround
+    # otherwise syncthing creates the dir as 0700 syncthing:syncthing
+    # also we want to set sgid so files are created under group syncthing..
+    systemd.tmpfiles.rules = [
+      "d ${cfg.syncthingDir} 2770 syncthing syncthing -"
+    ];
+
     services = {
       syncthing = {
         enable = true;
