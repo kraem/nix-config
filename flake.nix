@@ -22,39 +22,54 @@
     dotfiles,
     ... }@inputs:
     let
-      inherit (nixpkgs.lib) foldl' recursiveUpdate nixosSystem mapAttrs;
-
-      # We only evaluate server configs in the context of the system architecture
-      # they are deployed to
-      system = "x86_64-linux";
+      inherit (nixpkgs.lib) nixosSystem mapAttrs;
+      mkShell = nixpkgs.legacyPackages.x86_64-linux.mkShell;
 
       secrets = import ./secrets/secrets.nix;
       sshPort = (builtins.toString secrets.ssh.port);
 
-      mkSystem = module:
+      # TODO figure out how to not have ${system} below depend on this scope
+      system = "x86_64-linux";
+
+      mkSystem = system: module:
         nixosSystem {
           specialArgs = {
             inherit inputs;
           };
 
+          inherit system;
+
           modules = [
-            ({ systemd.package = (import staging { inherit system; }).systemd; })
             module
             impermanence.nixosModules.impermanence
             home-manager.nixosModules.home-manager
           ];
-
-          inherit system;
         };
     in
-    foldl' recursiveUpdate {} [
-       {
+      (flake-utils.lib.eachDefaultSystem (system: {
 
-        nixosConfigurations.ursa = mkSystem ./hosts/ursa.nix;
-        nixosConfigurations.frigate = mkSystem ./hosts/frigate.nix;
-        nixosConfigurations.lb1 = mkSystem ./hosts/lb1.nix;
-        nixosConfigurations.git = mkSystem ./hosts/git.nix;
-        nixosConfigurations.synapse = mkSystem ./hosts/synapse.nix;
+        defaultApp = self.apps.${system}.deploy;
+
+        apps = {
+          deploy = {
+            type = "app";
+            program = "${deploy-rs.packages."${system}".deploy-rs}/bin/deploy";
+          };
+        };
+
+        devShell = mkShell {
+          buildInputs = with nixpkgs.legacyPackages.${system}; [
+            nixUnstable
+            deploy-rs.defaultPackage.${system}
+          ];
+        };
+      })) //
+      {
+        nixosConfigurations.ursa = mkSystem "x86_64-linux" ./hosts/ursa.nix;
+        nixosConfigurations.frigate = mkSystem "x86_64-linux" ./hosts/frigate.nix;
+        nixosConfigurations.lb1 = mkSystem "x86_64-linux" ./hosts/lb1.nix;
+        nixosConfigurations.git = mkSystem "x86_64-linux" ./hosts/git.nix;
+        nixosConfigurations.synapse = mkSystem "x86_64-linux" ./hosts/synapse.nix;
 
         # Deployment expressions
         deploy.nodes.ursa = {
@@ -123,47 +138,7 @@
         };
 
         # Verify schema of .#deploy
-        checks = mapAttrs (_: lib: lib.deployChecks self.deploy) deploy-rs.lib;
-      }
-
-      (flake-utils.lib.eachDefaultSystem (system:
-        let
-          #overlay = import ./pkgs inputs;
-          pkgs = import nixpkgs { inherit system; }; #nixpkgs.legacyPackages.${system};
-
-          inherit (pkgs) mkShell;
-
-          deploy-host = pkgs.writeScriptBin "d" ''
-            #!${pkgs.stdenv.shell}
-            ${deploy-rs.packages."${system}".deploy-rs}/bin/deploy .#$@
-          '';
-
-          build-host = pkgs.writeScriptBin "b" ''
-            #!${pkgs.stdenv.shell}
-            ${pkgs.nixUnstable}/bin/nix build .#nixosConfigurations.$@.config.system.build.toplevel
-          '';
-
-        in {
-          defaultApp = self.apps.${system}.deploy;
-          #defaultPackage = builtins.trace (self.packages.${system}.hosts) self.packages.${system}.hosts;
-
-          apps = {
-            deploy = {
-              type = "app";
-              program = "${deploy-rs.packages."${system}".deploy-rs}/bin/deploy";
-            };
-          };
-
-          devShell = mkShell {
-            buildInputs = with pkgs; [
-              nixUnstable
-
-              deploy-host
-              build-host
-
-              deploy-rs.defaultPackage.${system}
-            ];
-          };
-        }))
-    ];
+        #checks = mapAttrs (_: lib: lib.deployChecks self.deploy) deploy-rs.lib;
+        checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
+      };
 }
