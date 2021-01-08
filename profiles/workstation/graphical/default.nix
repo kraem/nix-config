@@ -8,14 +8,10 @@ in
     ./bspwm.nix
     ./polybar.nix
     ./dunst.nix
+    ./alacritty.nix
     ./chromium.nix
     ./firefox.nix
     ./thunar.nix
     ./libinput-gestures.nix
   ];
-
-  # TODO export to own module
-  home-manager.users.kraem = { ... }: {
-    xdg.configFile."alacritty/alacritty.yml".source = (dotfiles + "/alacritty/alacritty.yml");
-  };
 }
