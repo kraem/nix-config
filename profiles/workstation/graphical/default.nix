@@ -11,6 +11,7 @@ in
     ./chromium.nix
     ./firefox.nix
     ./thunar.nix
+    ./libinput-gestures.nix
   ];
 
   # TODO export to own module
