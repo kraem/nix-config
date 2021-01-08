@@ -94,6 +94,7 @@ in
          path = [ pkgs.coreutils pkgs.bash ];
        };
 
+  # https://bugzilla.kernel.org/show_bug.cgi?id=101681
   powerManagement.powerDownCommands = ''
     ${pkgs.coreutils}/bin/echo unloading brcmfmac
     ${pkgs.kmod}/bin/lsmod | ${pkgs.gnugrep}/bin/grep -q "^brcmfmac" && ${pkgs.kmod}/bin/rmmod -f -v brcmfmac
