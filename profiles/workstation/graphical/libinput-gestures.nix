@@ -1,6 +1,7 @@
 { config, pkgs, ... }:
 
 {
+  # TODO extract, rename and activate through module?
   systemd.user.services.libinput-gestures = {
     serviceConfig = {
       Restart = "on-failure";
