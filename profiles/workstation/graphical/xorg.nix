@@ -43,9 +43,11 @@
 
   console.useXkbConfig = true;
 
+  # TODO export out of xorg
   fonts = {
     enableDefaultFonts = true;
     fonts = with pkgs; [
+      menlo-font
       hack-font
       dejavu_fonts
       montserrat

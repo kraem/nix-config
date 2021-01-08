@@ -41,6 +41,8 @@
 
           modules = [
             module
+            # https://matrix.to/#/!XXmPwxJAJXDQzaElMj:matrix.org/$1609953554124iSliP:matrix.uni-hannover.de?via=matrix.org&via=tchncs.de&via=privacytools.io
+            { nixpkgs.overlays = [ self.overlay ];}
             impermanence.nixosModules.impermanence
             home-manager.nixosModules.home-manager
           ];
@@ -70,6 +72,10 @@
         nixosConfigurations.lb1 = mkSystem "x86_64-linux" ./hosts/lb1.nix;
         nixosConfigurations.git = mkSystem "x86_64-linux" ./hosts/git.nix;
         nixosConfigurations.synapse = mkSystem "x86_64-linux" ./hosts/synapse.nix;
+
+        # https://github.com/Kloenk/nix/blob/15077ec4aa64bfd60c7c32029949b017f04a8b72/flake.nix#L164
+        overlay = final: prev:
+          (import ./pkgs/overlay.nix inputs final prev);
 
         # Deployment expressions
         deploy.nodes.ursa = {
