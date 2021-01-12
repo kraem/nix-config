@@ -3,7 +3,8 @@
 
   inputs = {
     nix = { url = "github:NixOS/nix"; inputs.nixpkgs.follows = "nixpkgs"; };
-    nixpkgs.url = "github:NixOS/nixpkgs/master";
+    #nixpkgs.url = "github:NixOS/nixpkgs/master";
+    nixpkgs.url = "git+https://github.com/kraem/nixpkgs?ref=kraem/zfs/revert-201";
     staging.url = "github:NixOS/nixpkgs/staging";
     flake-utils = { url = "github:numtide/flake-utils"; inputs.nixpkgs.follows = "nixpkgs"; };
     impermanence = { url = "github:nix-community/impermanence"; inputs.nixpkgs.follows = "nixpkgs"; };
