@@ -81,6 +81,13 @@ in
                 #"fd42:42:42::2/64"
               ];
             }
+            { # iphone
+              publicKey = secrets.wireguard.pubKeys.iphone;
+              allowedIPs = [
+                secrets.hosts.iphone.domain
+                #"fd42:42:42::2/64"
+              ];
+            }
           ];
         };
       };

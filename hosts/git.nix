@@ -38,6 +38,7 @@ in
     openssh.authorizedKeys.keys = [
       secrets.ssh.pubKeys.ursa
       secrets.ssh.pubKeys.frigate
+      secrets.ssh.pubKeys.iphone
     ];
     group = "git";
     isNormalUser = true;
