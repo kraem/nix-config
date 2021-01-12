@@ -21,7 +21,7 @@
     mpv
     pavucontrol
     pscircle
-    rofi
+    (rofi.override { plugins = [ pkgs.rofi-emoji ]; })
     rxvt_unicode
     scrot
     slack
