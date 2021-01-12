@@ -37,7 +37,7 @@ in
           Type = "oneshot";
         };
         script = ''
-          ${pkgs.rsync}/bin/rsync -v -a -e "ssh -i ${sshKeyPath} -p ${sshPort} -v" ${synapseBakUser}@${secrets.hosts.synapse.pubDomain}:${bakPathRemote}/* ${bakPathLocal}
+          ${pkgs.rsync}/bin/rsync -v -a -e "ssh -i ${sshKeyPath} -p ${sshPort} -v" ${synapseBakUser}@${secrets.hosts.synapse.domain}:${bakPathRemote}/* ${bakPathLocal}
         '';
         path = [
           pkgs.coreutils
