@@ -79,6 +79,17 @@ in
     swap = { device = "/dev/disk/by-uuid/06b414d1-2559-4b98-98cb-9807b3901491"; };
   };
 
+  boot.initrd.network.enable = false;
+  boot.initrd.availableKernelModules = [ "e1000e" ];
+  boot.initrd.network.ssh = {
+    enable = false;
+    port = secrets.ssh.port;
+    authorizedKeys = [
+      "${secrets.ssh.pubKeys.ursa}"
+    ];
+    hostKeys = [ "/etc/secrets/initrd/ssh_host_ed25519_key" ];
+  };
+
   # This is used if we don't want NixOS handling the mounting of the ZFS pools
   # and datasets.
   # The ZFS property "mountpoint" on the pool/dataset needs to be set to the dir
