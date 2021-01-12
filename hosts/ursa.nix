@@ -39,12 +39,14 @@ in
 
   my.wireguardClient = {
     enable = true;
-    serverEndpoint = secrets.hosts.lb1.domain;
+    disableOnBoot = false;
+    provisionWireguard = false;
+    serverEndpoint = secrets.hosts.lb1.pubDomain;
     serverPort = secrets.wireguard.port;
     serverPublicKey = secrets.wireguard.pubKeys.lb1;
-    serverDns = "10.0.0.1";
+    serverDns = secrets.hosts.lb1.domain;
     allowedIPs = "0.0.0.0/0";
-    clientAddress = "10.0.0.2";
+    clientAddress = secrets.hosts.ursa.domain;
     clientPrivateKeyFile = "/persist/secrets/ursa/wg/priv.key";
   };
 

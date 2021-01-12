@@ -1,5 +1,8 @@
 { config, pkgs, lib, ... }:
-
+let
+  secrets = import ../secrets/secrets.nix;
+  domainGit = secrets.hosts.git.domain;
+in
 {
   services.unbound = {
     enable = true;
@@ -15,7 +18,7 @@
       "0.0.0.0"
     ];
     extraConfig = ''
-      # local-data: "nebulae.lan A 10.0.0.1"
+      local-data: "git.lan A ${domainGit}"
 
       #  interface: 0.0.0.0
       #  do-ip4: yes

@@ -11,10 +11,24 @@ in
 
     ../profiles/core
 
+    ../modules/wireguard/client
   ];
 
   networking.hostName = "git";
   networking.firewall.allowPing = true;
+
+  my.wireguardClient = {
+    enable = true;
+    disableOnBoot = false;
+    provisionWireguard = false;
+    serverEndpoint = secrets.hosts.lb1.pubDomain;
+    serverPort = secrets.wireguard.port;
+    serverPublicKey = secrets.wireguard.pubKeys.lb1;
+    serverDns = secrets.hosts.lb1.domain;
+    allowedIPs = "10.0.0.0/24";
+    clientAddress = secrets.hosts.git.domain;
+    clientPrivateKeyFile = "/var/lib/wg/priv.key";
+  };
 
   users.groups.git = { };
 

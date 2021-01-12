@@ -25,6 +25,8 @@ in
       ../overlays/neovim.nix
 
       ../modules/syncthing
+
+      ../modules/wireguard/client
     ];
 
   # TODO: leave syncthingDir as the default syncthing module dir
@@ -33,6 +35,19 @@ in
     enable = true;
     syncthingDir = "/var/lib/syncthing";
     syncthingIDs = secrets.syncthingIDs;
+  };
+
+  my.wireguardClient = {
+    enable = true;
+    disableOnBoot = false;
+    provisionWireguard = false;
+    serverEndpoint = secrets.hosts.lb1.pubDomain;
+    serverPort = secrets.wireguard.port;
+    serverPublicKey = secrets.wireguard.pubKeys.lb1;
+    serverDns = secrets.hosts.lb1.domain;
+    allowedIPs = "0.0.0.0/0";
+    clientAddress = secrets.hosts.frigate.domain;
+    clientPrivateKeyFile = "/persist/secrets/frigate/wg/priv.key";
   };
 
   # TODO: move to persistence

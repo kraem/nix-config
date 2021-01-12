@@ -8,7 +8,7 @@
     flake-utils = { url = "github:numtide/flake-utils"; inputs.nixpkgs.follows = "nixpkgs"; };
     impermanence = { url = "github:nix-community/impermanence"; inputs.nixpkgs.follows = "nixpkgs"; };
     home-manager = { url = "github:rycee/home-manager"; inputs.nixpkgs.follows = "nixpkgs"; };
-    deploy-rs = { url = "git+https://github.com/kraem/deploy-rs?ref=fix/magic-rollback-pseudo-terminal"; inputs.nixpkgs.follows = "nixpkgs"; };
+    deploy-rs = { url = "github:serokell/deploy-rs"; inputs.nixpkgs.follows = "nixpkgs"; };
     dotfiles = { url = "github:kraem/dotfiles"; flake = false; };
   };
 

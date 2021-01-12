@@ -34,7 +34,7 @@ in
         wg0 = {
           # Determines the IP address and subnet of the server's end of the tunnel interface.
           ips = [
-            "10.0.0.1/24"
+            secrets.hosts.lb1.domain
             #"fd42:42:42::1/64"
           ];
 
@@ -55,9 +55,29 @@ in
           peers = [
             { # ursa
               publicKey = secrets.wireguard.pubKeys.ursa;
-              # List of IPs assigned to this peer within the tunnel subnet. Used to configure routing.
               allowedIPs = [
-                "10.0.0.2/32"
+                secrets.hosts.ursa.domain
+                #"fd42:42:42::2/64"
+              ];
+            }
+            { # frigate
+              publicKey = secrets.wireguard.pubKeys.frigate;
+              allowedIPs = [
+                secrets.hosts.frigate.domain
+                #"fd42:42:42::2/64"
+              ];
+            }
+            { # git
+              publicKey = secrets.wireguard.pubKeys.git;
+              allowedIPs = [
+                secrets.hosts.git.domain
+                #"fd42:42:42::2/64"
+              ];
+            }
+            { # synapse
+              publicKey = secrets.wireguard.pubKeys.synapse;
+              allowedIPs = [
+                secrets.hosts.synapse.domain
                 #"fd42:42:42::2/64"
               ];
             }

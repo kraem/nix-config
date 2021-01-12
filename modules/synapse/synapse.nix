@@ -214,7 +214,7 @@ in
       metrics_path = "/_synapse/metrics";
       static_configs = [{
         targets = [ "localhost:9002" ];
-        labels = { alias = "prometheus.synapse.${secrets.hosts.synapse.domain}"; };
+        labels = { alias = "prometheus.synapse.${secrets.hosts.synapse.pubDomain}"; };
       }];
     }];
   };

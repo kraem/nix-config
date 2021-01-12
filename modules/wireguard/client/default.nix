@@ -7,6 +7,14 @@ in
 {
   options.my.wireguardClient = {
     enable = lib.mkEnableOption "";
+    disableOnBoot = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+    };
+    provisionWireguard = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+    };
     clientAddress = lib.mkOption {
       type = lib.types.str;
       default = "";
@@ -37,10 +45,8 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable
+  config = lib.mkIf cfg.enable (lib.mkMerge [
     {
-      systemd.services.wg-quick-wg0.wantedBy = lib.mkForce [ ];
-
       networking.wg-quick.interfaces = {
         wg0 = {
 
@@ -87,5 +93,22 @@ in
           #preDown = "${pkgs.iptables}/bin/iptables -D OUTPUT ! -o wg0 -m mark ! --mark $(${pkgs.wireguard}/bin/wg show wg0 fwmark) -m addrtype ! --dst-type LOCAL -j REJECT";
         };
       };
-    };
+
+      systemd.services.wg-quick-wg0.wants = [ "sshd.service" ];
+      systemd.services.wg-quick-wg0.before = [ "sshd.service" ];
+    }
+
+    (lib.mkIf cfg.disableOnBoot {
+      systemd.services.wg-quick-wg0.wantedBy = lib.mkForce [ ];
+    })
+
+    (lib.mkIf (cfg.provisionWireguard == false) {
+      services.openssh.listenAddresses = [
+        {
+          addr = cfg.clientAddress;
+          port = secrets.ssh.port;
+        }
+      ];
+    })
+  ]);
 }

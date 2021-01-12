@@ -10,18 +10,17 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1609179349,
-        "narHash": "sha256-XA2PEe29jhkqHstuU8Vxo6H7Jia9QAVFAnmEL9YLAr8=",
-        "ref": "fix/magic-rollback-pseudo-terminal",
-        "rev": "28764fa22059f0fbc59231ddcdfc1489226757d5",
-        "revCount": 130,
-        "type": "git",
-        "url": "https://github.com/kraem/deploy-rs"
+        "lastModified": 1610347531,
+        "narHash": "sha256-Z11Pau1L1Byl6Zpdt2N4RtSZMsOck74jRS9O8LJfswc=",
+        "owner": "serokell",
+        "repo": "deploy-rs",
+        "rev": "bcdf7b89663398a690348ca8b2883c2d18de42c4",
+        "type": "github"
       },
       "original": {
-        "ref": "fix/magic-rollback-pseudo-terminal",
-        "type": "git",
-        "url": "https://github.com/kraem/deploy-rs"
+        "owner": "serokell",
+        "repo": "deploy-rs",
+        "type": "github"
       }
     },
     "dotfiles": {

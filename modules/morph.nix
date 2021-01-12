@@ -26,4 +26,6 @@ in
     hashedPassword = secrets.hashedPasswords.userMorph;
   };
 
+  security.sudo.wheelNeedsPassword = false;
+
 }
