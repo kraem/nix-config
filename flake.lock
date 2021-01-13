@@ -165,11 +165,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1610525147,
-        "narHash": "sha256-3MjPl8eCssbPfHnR4edWZ7fUheXwMxmrz+mUAY5nFHs=",
+        "lastModified": 1610537615,
+        "narHash": "sha256-i2HQmOzvjJ/bihq3LekSukWX58zF+dbXv4wJ+ZNlsRM=",
         "ref": "kraem/zfs/revert-201",
-        "rev": "5165b261b53d4951013b2a587bd07de28c5816c9",
-        "revCount": 263202,
+        "rev": "eb413528f7d50b74564ad069d1f7acd0f8260680",
+        "revCount": 263204,
         "type": "git",
         "url": "https://github.com/kraem/nixpkgs"
       },
