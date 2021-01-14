@@ -26,11 +26,11 @@
     "dotfiles": {
       "flake": false,
       "locked": {
-        "lastModified": 1610387956,
-        "narHash": "sha256-5aFIoBgIn1L7ergdrBAx/SIdYnpHwcrq5neyCJfS0eM=",
+        "lastModified": 1610553982,
+        "narHash": "sha256-8Mz1A7nUvT+8XGGeBQuGGx3tQATCaJzy/VqGKoE5NY4=",
         "owner": "kraem",
         "repo": "dotfiles",
-        "rev": "5ed6697a29adc3d6b70fa81115e3225ced70d425",
+        "rev": "3ff0e90ac8e72b6bc8dc03212215d8d8e176d359",
         "type": "github"
       },
       "original": {
@@ -165,11 +165,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1610537615,
-        "narHash": "sha256-i2HQmOzvjJ/bihq3LekSukWX58zF+dbXv4wJ+ZNlsRM=",
+        "lastModified": 1610569021,
+        "narHash": "sha256-QQ4TK/FAGc9T/ijKdlhAlOZIKqkcuyOFZSL3eNRRmFo=",
         "ref": "kraem/zfs/revert-201",
-        "rev": "eb413528f7d50b74564ad069d1f7acd0f8260680",
-        "revCount": 263204,
+        "rev": "61303be914baef515abd4e931f61f977507f6b01",
+        "revCount": 263359,
         "type": "git",
         "url": "https://github.com/kraem/nixpkgs"
       },
