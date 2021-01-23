@@ -6,6 +6,7 @@ in
 
   environment.systemPackages = with pkgs; [
     gopls
+    gotools
   ];
 
   nixpkgs.overlays = [
@@ -22,7 +23,7 @@ in
             owner = "neovim";
             repo = "neovim";
             rev = "${version}";
-            sha256 = "sha256-ejRVixcybmjGIh4Hy5uON1DVDLXP5WjEXGAJCjiiLQU=";
+            sha256 = "sha256-6JwDtYHrC+hU2dfuHYBMHDD2pLbOfTDf5lwBMFFNjOY=";
           };
         }
       );
