@@ -114,7 +114,27 @@ in
       accounts.gmail = {
         address = "${email.gmailFull}";
         maildir = { path = "gmail"; };
-        folders = { inbox = "inbox"; };
+        folders = {
+          # spoolfile
+          inbox = "inbox";
+          drafts = "drafts";
+          # NB
+          # sent wont be used for sending, at least not for gmail as
+          # we do `unset record` in extraConfig below
+          # (sent will only be used for reading sent emails only)
+          # the reason is gmail picks up that we're sending mail,
+          # and adds the mail to the sent folder automatically
+          # source: https://github.com/LukeSmithxyz/mutt-wizard/issues/226
+          # source: https://github.com/LukeSmithxyz/mutt-wizard/issues/333
+          # source: https://support.google.com/mail/answer/78892?hl=en#zippy=%2Canother-email-client
+          # source: https://superuser.com/questions/224524/sending-mails-via-mutt-and-gmail-duplicates
+          # TODO set `copy no` as per the last source link
+
+          # TODO verify this with the other accounts
+          # TODO add all of these folders on the other accounts
+          sent = "sent";
+          trash = "trash";
+        };
         #gpg = {
         #  key = "";
         #  signByDefault = true;
@@ -173,15 +193,10 @@ in
         neomutt = {
           enable = true;
           extraConfig = ''
-            set folder              = "~/mail/gmail"
-            set spoolfile           = "~/mail/gmail/inbox"
-            set record              = "~/mail/gmail/sent"
-            set mbox                = "~/mail/gmail/archive"
-            set postponed           = "~/mail/gmail/drafts"
-            set trash               = "~/mail/gmail/trash"
             unmailboxes *
             mailboxes =inbox =sent =archive =drafts =trash =spam
             macro index R "<shell-escape>mbsync google<enter>"
+            unset record
           '';
         };
         primary = true;
