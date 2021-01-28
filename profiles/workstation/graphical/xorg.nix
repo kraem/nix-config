@@ -26,7 +26,6 @@
     scrot
     slack
     spotify
-    virtmanager
     vulkan-tools
     wireshark
     # for wpg --preview
@@ -77,8 +76,10 @@
 
       libinput = {
         enable = true;
-        naturalScrolling = true;
-        disableWhileTyping = true;
+        touchpad = {
+          naturalScrolling = true;
+          disableWhileTyping = true;
+        };
       };
 
       xautolock.enable = true;
