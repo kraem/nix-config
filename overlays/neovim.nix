@@ -7,6 +7,7 @@ in
   environment.systemPackages = with pkgs; [
     gopls
     gotools
+    rnix-lsp
   ];
 
   nixpkgs.overlays = [
@@ -15,7 +16,7 @@ in
       neovim = (super.pkgs.neovim-unwrapped.override { }).overrideAttrs (
         oldAttrs: rec {
           pname = "neovim-unwrapped";
-          version = "master";
+          version = "6d67cf8647d251df4b1ded60b4ae3d49a1f73ad3";
 
           propagatedBuildInputs = [ pkgs.tree-sitter ];
 
@@ -23,7 +24,7 @@ in
             owner = "neovim";
             repo = "neovim";
             rev = "${version}";
-            sha256 = "sha256-6JwDtYHrC+hU2dfuHYBMHDD2pLbOfTDf5lwBMFFNjOY=";
+            sha256 = "sha256-3nX12AG/xc6yoTQtAIcJw6/f/TGyN8mt+/P1WpI8FQY=";
           };
         }
       );
