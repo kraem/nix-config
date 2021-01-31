@@ -16,6 +16,15 @@
     "nvme_core.default_ps_max_latency_us=0"
   ];
 
+  # tcp_ecn = 0 according to
+  # https://bbs.archlinux.org/viewtopic.php?id=240916
+  # https://github.com/Baughn/machine-config/blob/3eed598f8b3b7fb6c7ab93615c2864f8e4652af4/modules/basics.nix#L109
+  # haven't tested:
+  # https://bugzilla.kernel.org/show_bug.cgi?id=198645
+  boot.kernel.sysctl = {
+    "net.ipv4.tcp_ecn" = 0;
+  };
+
   boot.initrd.kernelModules = [ "amdgpu" ];
   services.xserver.videoDrivers = [ "amdgpu" ];
 
