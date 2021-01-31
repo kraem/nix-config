@@ -16,6 +16,9 @@
     "nvme_core.default_ps_max_latency_us=0"
   ];
 
+  boot.initrd.kernelModules = [ "amdgpu" ];
+  services.xserver.videoDrivers = [ "amdgpu" ];
+
   powerManagement.enable = false;
 
   imports = [
