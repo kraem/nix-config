@@ -81,6 +81,7 @@
         nixosConfigurations.lb1 = mkSystem "x86_64-linux" ./hosts/lb1.nix;
         nixosConfigurations.git = mkSystem "x86_64-linux" ./hosts/git.nix;
         nixosConfigurations.synapse = mkSystem "x86_64-linux" ./hosts/synapse.nix;
+        nixosConfigurations.cane = mkSystem "x86_64-linux" ./hosts/cane.nix;
 
         nixosConfigurations.iso = mkSystem "x86_64-linux" ./iso.nix;
 
@@ -111,6 +112,19 @@
               sshOpts = [ "-p" "${sshPort}" ];
               path = deploy-rs.lib.${system}.activate.nixos
                 self.nixosConfigurations.frigate;
+            };
+          };
+        };
+
+        deploy.nodes.cane = {
+          hostname = "${secrets.hosts.cane.domain}";
+          profiles = {
+            system = rec {
+              sshUser = "morph";
+              user = "root";
+              sshOpts = [ "-p" "${sshPort}" ];
+              path = deploy-rs.lib.${system}.activate.nixos
+                self.nixosConfigurations.cane;
             };
           };
         };

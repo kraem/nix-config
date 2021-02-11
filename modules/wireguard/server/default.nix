@@ -88,6 +88,13 @@ in
                 #"fd42:42:42::2/64"
               ];
             }
+            { # cane
+              publicKey = secrets.wireguard.pubKeys.cane;
+              allowedIPs = [
+                secrets.hosts.cane.domain
+                #"fd42:42:42::2/64"
+              ];
+            }
           ];
         };
       };
