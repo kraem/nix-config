@@ -7,12 +7,14 @@
     docker-compose
   ];
 
+  users.extraUsers.kraem.extraGroups = [ "docker" ];
+
   virtualisation.docker.enable = true;
 
   # Because company VPN operates on 172.17.x.x
   # --bip is for the default bridge `docker0` CIDR range
   # --default-address-pool is the CIDR range which `docker-compose` uses for example
-  virtualisation.docker.extraOptions = "--bip=\"172.26.0.1/16\" --default-address-pool=\"base=172.30.0.0/16,size=24\" --ipv6=false";
+  virtualisation.docker.extraOptions = "--bip=\"172.26.0.1/16\" --default-address-pool=\"base=172.30.0.0/16,size=24\" --ipv6=false --default-ulimit nofile=1024000:1024000";
 
   # To make docker containers unavailable to the otuside
   # Otherwise the docker daemon opens the ports in iptables
