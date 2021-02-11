@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 let
   secrets = import ../secrets/secrets.nix;
 in
@@ -9,7 +9,8 @@ in
 
     passwordAuthentication = false;
     challengeResponseAuthentication = false;
-    permitRootLogin = "no";
+    # as iso.nix imports graphical image and sets to "yes"..
+    permitRootLogin = lib.mkDefault "no";
     ports = [ secrets.ssh.port ];
     openFirewall = true;
     # sshd is now only working over protocol 2 so the config line below is not needed

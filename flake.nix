@@ -3,8 +3,8 @@
 
   inputs = {
     nix = { url = "github:NixOS/nix"; inputs.nixpkgs.follows = "nixpkgs"; };
-    #nixpkgs.url = "github:NixOS/nixpkgs/master";
-    nixpkgs.url = "git+https://github.com/kraem/nixpkgs?ref=kraem/zfs/revert-201";
+    nixpkgs.url = "github:NixOS/nixpkgs/master";
+    #nixpkgs.url = "git+https://github.com/kraem/nixpkgs?ref=kraem/zfs/revert-201";
     staging.url = "github:NixOS/nixpkgs/staging";
     flake-utils = { url = "github:numtide/flake-utils"; inputs.nixpkgs.follows = "nixpkgs"; };
     impermanence = { url = "github:nix-community/impermanence"; inputs.nixpkgs.follows = "nixpkgs"; };
@@ -48,6 +48,13 @@
             home-manager.nixosModules.home-manager
           ];
         };
+
+      pkgs = import nixpkgs { inherit system; }; #nixpkgs.legacyPackages.${system};
+
+      mkIso = pkgs.writeScriptBin "mkiso" ''
+          #!${pkgs.stdenv.shell}
+          ${pkgs.nixUnstable}/bin/nix build .#nixosConfigurations.iso.config.system.build.isoImage
+        '';
     in
       (flake-utils.lib.eachDefaultSystem (system: {
 
@@ -64,6 +71,7 @@
           buildInputs = with nixpkgs.legacyPackages.${system}; [
             nixUnstable
             deploy-rs.defaultPackage.${system}
+            mkIso
           ];
         };
       })) //
@@ -73,6 +81,8 @@
         nixosConfigurations.lb1 = mkSystem "x86_64-linux" ./hosts/lb1.nix;
         nixosConfigurations.git = mkSystem "x86_64-linux" ./hosts/git.nix;
         nixosConfigurations.synapse = mkSystem "x86_64-linux" ./hosts/synapse.nix;
+
+        nixosConfigurations.iso = mkSystem "x86_64-linux" ./iso.nix;
 
         # https://github.com/Kloenk/nix/blob/15077ec4aa64bfd60c7c32029949b017f04a8b72/flake.nix#L164
         overlay = final: prev:
