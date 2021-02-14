@@ -3,7 +3,7 @@ let
   node-exporter-dashboard-json = pkgs.fetchurl {
     url =
       "https://raw.githubusercontent.com/rfrail3/grafana-dashboards/master/prometheus/node-exporter-full.json";
-    sha256 = "1cgv4mr6xx79x1bxn0q6byn8j5pf3pgb0w6h09pby3692asb13w5";
+    sha256 = "sha256-4bzpgEoRX/P5eXmG/3U3tmK5FK96bk0RliTl/h04y54=";
   };
 in
 {
