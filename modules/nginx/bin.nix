@@ -33,6 +33,10 @@ in
     virtualHosts = {
       "${config.networking.domain}" = {
 
+        # lego + acme fails with 400 (JWT token error)
+        # https://discourse.nixos.org/t/lets-encrypt-on-20-09/9950/2
+        # https://github.com/NixOS/nixpkgs/issues/101445#issuecomment-757326969
+
         enableACME = true;
         forceSSL = true;
 
