@@ -16,7 +16,7 @@ in
       neovim = (super.pkgs.neovim-unwrapped.override { }).overrideAttrs (
         oldAttrs: rec {
           pname = "neovim-unwrapped";
-          version = "6d67cf8647d251df4b1ded60b4ae3d49a1f73ad3";
+          version = "8f4b9b8b7de3a24279fad914e9d7ad5ac1213034";
 
           propagatedBuildInputs = [ pkgs.tree-sitter ];
 
@@ -24,7 +24,7 @@ in
             owner = "neovim";
             repo = "neovim";
             rev = "${version}";
-            sha256 = "sha256-3nX12AG/xc6yoTQtAIcJw6/f/TGyN8mt+/P1WpI8FQY=";
+            sha256 = "sha256-m+1BPfIonmqlZGjCB910kXnc4o0XuyESNM3vyIv94lA=";
           };
         }
       );
