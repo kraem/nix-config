@@ -11,6 +11,7 @@
     home-manager = { url = "github:rycee/home-manager"; inputs.nixpkgs.follows = "nixpkgs"; };
     deploy-rs = { url = "github:serokell/deploy-rs"; inputs.nixpkgs.follows = "nixpkgs"; };
     dotfiles = { url = "github:kraem/dotfiles"; flake = false; };
+    neovim-nightly = { url = "github:neovim/neovim"; inputs.nixpkgs.follows = "nixpkgs"; flake = false; };
   };
 
   outputs = { self,
