@@ -94,10 +94,9 @@ in
         };
       };
 
-      systemd.services.wg-quick-wg0.wants = [ "sshd.service" ];
-      #systemd.services.wg-quick-wg0.after = [ "network-online.target" ];
+      systemd.services.wg-quick-wg0.wantedBy = [ "sshd.service" ];
       systemd.services.wg-quick-wg0.before = [ "sshd.service" ];
-      #systemd.services.sshd.after = [ "wg-quick-wg0.service" ];
+      systemd.services.wg-quick-wg0.after = [ "network.target" ];
     }
 
     (lib.mkIf cfg.disableOnBoot {
