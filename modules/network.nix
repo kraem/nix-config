@@ -6,7 +6,7 @@
   networking.firewall.allowedTCPPorts = [ ];
   networking.firewall.allowedUDPPorts = [ ];
 
-  networking.enableIPv6 = true;
+  networking.enableIPv6 = false;
   #networking.resolvconf.useLocalResolver = true;
 
   imports = [
