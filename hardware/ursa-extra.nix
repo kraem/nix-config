@@ -2,6 +2,12 @@
 
 {
 
+  # hopefully this solves random freezes
+  # if not try:
+  # 1. Power Supply Idle Control in BIOS
+  # 2. kernel param `processor.max_cstate=1`
+  hardware.cpu.amd.updateMicrocode = true;
+
   # Kingston A2000 goes into powersaving mode
   # which results in the nvme ssd not responding.
   # This disables it
