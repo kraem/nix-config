@@ -95,7 +95,7 @@
       enable = true;
       backend = "glx";
       vSync = true;
-      inactiveOpacity = 0.9;
+      inactiveOpacity = 0.95;
       opacityRules = [
         "100:focused"
         "100:class_g = 'dmenu'"
