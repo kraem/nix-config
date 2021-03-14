@@ -50,10 +50,12 @@
     git-crypt
     gotop
     htop
+    libxml2
     lsof
     neovim
     ripgrep
     rsync
+    sshfs
     tmux
     tree
     pv
