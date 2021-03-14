@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
 
@@ -7,9 +7,16 @@
     docker-compose
   ];
 
+  # https://github.com/NixOS/nixpkgs/pull/112472/files
+  # increase fs inotify (journald fd: too many open files)
+  boot.kernel.sysctl."fs.inotify.max_user_instances" = lib.mkDefault 8192;
+
   users.extraUsers.kraem.extraGroups = [ "docker" ];
 
   virtualisation.docker.enable = true;
+
+  # https://discourse.nixos.org/t/configuring-docker-vm-default-memory-limits/2743/2
+  # default-ulimit
 
   # Because company VPN operates on 172.17.x.x
   # --bip is for the default bridge `docker0` CIDR range
