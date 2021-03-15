@@ -25,6 +25,7 @@ in
 
       ../modules/agents.nix
       ../overlays/neovim.nix
+      ../overlays/isync.nix
 
       ../modules/syncthing
     ];
