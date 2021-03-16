@@ -5,10 +5,8 @@ in
 {
 
   environment.systemPackages = with pkgs; [
-    # https://github.com/NixOS/nixpkgs/pull/85253
-    # https://nixos.wiki/wiki/Chromium#Enable_GPU_accelerated_video_decoding_.28VA-API.29
-    # Overriding does not trigger a rebuild anymore! 🎉
-    (chromium.override { enableVaapi = true; })
+    # https://github.com/NixOS/nixpkgs/pull/116218
+    (chromium.override { commandLineArgs = "--enable-features=VaapiVideoDecoder"; })
   ];
 
   programs = {
