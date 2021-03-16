@@ -13,7 +13,10 @@ let
   # NB SyncState solves this by putting state files in the
   # NB the corresponding slave maildirs instead of ~/.mbsync
   channelExtraConfig = {
+    # only allow creation of maildir on slave/near
     Create = "Slave";
+    # propagate deletions
+    Expunge = "Both";
     SyncState = "*";
   };
 in
@@ -142,8 +145,12 @@ in
         imap.host = "imap.gmail.com";
         mbsync = {
           enable = true;
-          create = "maildir";
-          expunge = "both";
+          # TODO remove
+          # these (create/expunge/remove) isn't doing anything when we have channels
+          # configured with channelExtraConfig
+          #create = "maildir";
+          #expunge = "both";
+          #remove = "maildir";
           patterns = [ "*" "![Gmail]*" "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail" ];
           groups = {
             "google" = {
@@ -219,8 +226,9 @@ in
         imap.host = "imap.mailbox.org";
         mbsync = {
           enable = true;
-          create = "maildir";
-          expunge = "both";
+          #create = "maildir";
+          #expunge = "both";
+          #remove = "maildir";
           #patterns = ["*" "![Gmail]*" "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail"];
           groups = {
             "mailbox" = {
@@ -302,8 +310,9 @@ in
         imap.host = "webmail.kth.se";
         mbsync = {
           enable = true;
-          create = "maildir";
-          expunge = "both";
+          #create = "maildir";
+          #expunge = "both";
+          #remove = "maildir";
           patterns = [ "*" ];
           groups = {
             "kth" = {
