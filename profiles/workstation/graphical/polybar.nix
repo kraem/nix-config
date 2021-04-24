@@ -1,11 +1,27 @@
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, inputs, lib, ... }:
 let
   # TODO
-  # - clean
-  # - fix conditionals (extract to workstation module)
-  wifiModule = (if config.networking.hostName == "ursa" then "wlp8s0" else "wlp3s0");
-  fontSize = (if config.networking.hostName == "ursa" then "12" else "13");
-  barHeight = (if config.networking.hostName == "ursa" then "22" else "33");
+  # - define module and configure in host.nix?
+
+  barHeights = {
+    frigate = "33";
+    ursa = "22";
+    cane = "18";
+  };
+  wifiModules = {
+    frigate = "wlp3s0";
+    ursa = "wlp8s0";
+    cane = "wlo1";
+  };
+  fontSizes = {
+    cane = "10";
+    frigate = "13";
+    ursa = "12";
+  };
+
+  barHeight = (lib.filterAttrs (n: v: n == config.networking.hostName) barHeights).${config.networking.hostName};
+  wifiModule = (lib.filterAttrs (n: v: n == config.networking.hostName) wifiModules).${config.networking.hostName};
+  fontSize = (lib.filterAttrs (n: v: n == config.networking.hostName) fontSizes).${config.networking.hostName};
 
   polybarConfig = ''
     [colors]
@@ -25,6 +41,7 @@ let
     margin-bottom = 0
 
     [bar/top]
+    monitor = ''${env:MONITOR}
     width = 100%
     height = ${barHeight}
     offset-x = 0%
@@ -144,7 +161,16 @@ in
       enable = true;
       package = pkgs.polybar.override { pulseSupport = true; };
       extraConfig = polybarConfig;
-      script = "polybar top &";
+      script = ''
+        export PATH=$PATH:${pkgs.xorg.xrandr}/bin:${pkgs.ripgrep}/bin:${pkgs.coreutils}/bin
+        if type "xrandr"; then
+          for m in $(xrandr --query | rg " connected" | cut -d" " -f1); do
+            export MONITOR=$m && polybar --reload top &
+          done
+        else
+          polybar --reload top &
+        fi
+      '';
     };
   };
 }
