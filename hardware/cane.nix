@@ -38,6 +38,11 @@
       fsType = "vfat";
     };
 
+  fileSystems."/var/lib/docker" =
+    { device = "rpool/safe/docker";
+      fsType = "zfs";
+    };
+
   swapDevices = [ ];
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
