@@ -26,11 +26,11 @@
     "dotfiles": {
       "flake": false,
       "locked": {
-        "lastModified": 1616512911,
-        "narHash": "sha256-Ktkl5dF7I55QleuuSvKMDoPR4w0y6PuEduJk8CG/Etw=",
+        "lastModified": 1620136875,
+        "narHash": "sha256-41N6QGuGLdBi+4gTlmpnFaM4CaeOOzYwyZ306pVTXrs=",
         "owner": "kraem",
         "repo": "dotfiles",
-        "rev": "678394acac890c63f59c3bbb9ea33a7d19f979a1",
+        "rev": "76931fcba165327a9cd817003efeee5f7e381f13",
         "type": "github"
       },
       "original": {
