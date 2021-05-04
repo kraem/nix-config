@@ -20,7 +20,6 @@ let
   powerlevel-conf =
     builtins.readFile (dotfiles + "/zsh/p10k.zsh");
 
-  # TODO PATH is not used yet
   zsh-path =
     builtins.readFile (dotfiles + "/zsh/path.zsh");
   zsh-history =
@@ -61,6 +60,7 @@ in
       initExtraFirst = powerlevel-init;
       initExtra =
         (
+          zsh-path +
           zsh-history +
           zsh-vi-bindings +
           zsh-aliases +
