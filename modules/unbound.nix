@@ -6,31 +6,27 @@ in
 {
   services.unbound = {
     enable = true;
-    #enableRemoteAccess = true;
-    forwardAddresses = [
-      "1.1.1.1"
-    ];
-    allowedAccess = [
-      "10.0.0.0/16"
-      "192.168.1.0/16"
-    ];
-    interfaces = [
-      "0.0.0.0"
-    ];
-    extraConfig = ''
-      local-data: "git.lan A ${domainGit}"
-
-      #  interface: 0.0.0.0
-      #  do-ip4: yes
-      #  do-ip6: no
-      #  do-udp: yes
-      #  do-tcp: yes
-      #  access-control: 10.0.0.0/24 allow
-      #  access-control: 127.0.0.0/8 allow
-      #  access-control: 192.168.0.0/16 allow
-      #  verbosity: 1
-         log-queries: yes
-    '';
+    settings = {
+      forward-zone = [
+        {
+          name = ".";
+          forward-addr = [ "1.1.1.1" ];
+        }
+      ];
+      server = {
+        access-control = [
+          "10.0.0.0/16 allow"
+          "192.168.1.0/16 allow"
+        ];
+        interface = [
+          "0.0.0.0"
+        ];
+        local-data = [
+          ''"git.lan A ${domainGit}"''
+          ''"ne.bul.ae A 10.0.0.5"''
+        ];
+      };
+    };
   };
 
   networking.firewall.allowedUDPPorts = [ 53 ];
