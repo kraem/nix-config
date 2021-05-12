@@ -13,7 +13,8 @@ in
 
   # https://github.com/NixOS/nixpkgs/pull/112472/files
   # increase fs inotify (journald fd: too many open files)
-  boot.kernel.sysctl."fs.inotify.max_user_instances" = lib.mkDefault 8192;
+  # fixed in xserver.nix: d4e149c8ff6969d8f6180ca0026981398d58b73a
+  #boot.kernel.sysctl."fs.inotify.max_user_instances" = lib.mkDefault 8192;
 
   users.extraUsers.kraem.extraGroups = [ "docker" ];
 
