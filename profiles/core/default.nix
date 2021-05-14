@@ -8,14 +8,6 @@
     ../../overlays/neovim.nix
   ];
 
-  # TODO fix problems introduced by #122099 upstream and remove
-  boot = {
-    kernel.sysctl = lib.mkOverride 95 {
-      "net.ipv4.conf.all.forwarding" = true;
-      "net.ipv4.conf.default.forwarding" = true;
-    };
-  };
-
   boot.cleanTmpDir = true;
 
   users.mutableUsers = false;
