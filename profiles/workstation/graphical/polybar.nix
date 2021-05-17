@@ -6,7 +6,7 @@ let
   barHeights = {
     frigate = "33";
     ursa = "22";
-    cane = "18";
+    cane = "19";
   };
   wifiModules = {
     frigate = "wlp3s0";
@@ -67,9 +67,10 @@ let
 
     modules-left = bspwm
     modules-center = date
-    modules-right = wlan pulseaudio battery
+    modules-right = wg0 wlan pulseaudio battery
 
     tray-position = right
+    tray-padding = 2
 
     cursor-click = pointer
     cursor-scroll = ns-resize
@@ -109,7 +110,7 @@ let
     interface = ${wifiModule}
     interval = 3.0
 
-    format-connected =   <label-connected>
+    format-connected = <label-connected>
     label-connected = %essid%
 
     format-disconnected =
@@ -131,8 +132,8 @@ let
     [module/pulseaudio]
     type = internal/pulseaudio
 
-    format-volume =   <label-volume>
-    format-muted =   <label-muted>
+    format-volume = <label-volume>
+    format-muted = <label-muted>
 
     label-volume = %percentage%%
     label-volume-foreground = ''${root.foreground}
@@ -146,16 +147,24 @@ let
     adapter = ADP1
     full-at = 98
 
-    format-charging =   <label-charging>
-    format-discharging =   <label-discharging>
-    format-full =  <label-full>
+    format-charging = <label-charging>
+    format-discharging = <label-discharging>
+    format-full = <label-full>
 
     label-charging = %percentage%%
     label-discharging = %percentage%%
     label-full = %percentage%%
+
+    [module/wg0]
+    type = custom/script
+
+    exec = cat /tmp/wg-observer
+    tail = true
   '';
 in
 {
+  imports = [ ./polybar-services.nix ];
+
   home-manager.users.kraem = { ... }: {
     services.polybar = {
       enable = true;
