@@ -103,9 +103,24 @@ in
     recommendedProxySettings = true;
 
     virtualHosts = {
+
+      # ADMIN API
+      #"127.0.0.1" = {
+      #  locations."/_synapse" = {
+      #    proxyPass = "http://[::1]:8008"; # without a trailing /
+      #  };
+      #  listen = [
+      #    {
+      #      addr = "127.0.0.1";
+      #      port = 80;
+      #    }
+      #  ];
+      #};
+
       # This host section can be placed on a different host than the rest,
       # i.e. to delegate from the host being accessible as ${config.networking.domain}
       # to another host actually running the Matrix homeserver.
+
       "${config.networking.domain}" = {
 
         enableACME = true;
@@ -124,6 +139,14 @@ in
         # this could potentially proxy to nice website, but for now 404
         locations."/" = {
           root = indexHtml;
+
+          #listen = [
+          #  {
+          #    ip = "10.0.0.3";
+          #    port = 443;
+          #    tls = true;
+          #  }
+          #];
           #extraConfig = ''
           #  return 404
           #'';
@@ -204,6 +227,9 @@ in
         }];
       }
     ];
+    extraConfig = ''
+      experimental_features: { spaces_enabled: true }
+    '';
   };
 
   services.prometheus = {
