@@ -12,7 +12,6 @@
   users.users.kraem = {
     extraGroups = [
       "fuse"
-      "systemd-journal"
       "networkmanager"
       "syncthing"
       "audio"

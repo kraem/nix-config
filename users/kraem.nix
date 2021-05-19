@@ -14,6 +14,7 @@ in
     uid = 1000;
     extraGroups = [
       "wheel"
+      "systemd-journal"
     ];
   };
 
