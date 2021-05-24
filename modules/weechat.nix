@@ -17,4 +17,7 @@
     weechatScripts.weechat-matrix
   ];
 
+  # TODO define port in weechat module once we add as system service..
+  networking.firewall.allowedTCPPorts = [ 26001 ];
+
 }

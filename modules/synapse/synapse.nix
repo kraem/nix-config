@@ -77,6 +77,7 @@ in
 
   networking.firewall.allowedTCPPorts = [ 80 443 ];
 
+  # TODO word readable
   # the db-name "matrix-synapse" can be changed in services.postgresql.database_name
   services.postgresql.initialScript = pkgs.writeText "synapse-init.sql" ''
     CREATE ROLE "matrix-synapse" WITH LOGIN PASSWORD ${secrets.hosts.synapse.postgresLoginPw};
@@ -92,6 +93,33 @@ in
 
   security.acme.email = secrets.email.gmailFull;
   security.acme.acceptTerms = true;
+  security.acme.certs =
+    let
+      creds = pkgs.writeTextFile {
+        name = "vultr.env";
+        text = ''
+          VULTR_API_KEY=${secrets.hosts.synapse.vultrAPIKey}
+        '';
+      };
+    in
+    {
+    "${config.networking.domain}" = {
+      dnsProvider = "vultr";
+      credentialsFile = "${creds}";
+      group = "nginx";
+      email = secrets.email.gmailFull;
+      extraDomainNames =
+        [ "*.ne.bul.ae" ];
+      extraLegoFlags = [ "--dns.resolvers=8.8.8.8:53" ];
+    };
+    "${fqdn}" = {
+      dnsProvider = "vultr";
+      credentialsFile = "${creds}";
+      group = "nginx";
+      email = secrets.email.gmailFull;
+      extraLegoFlags = [ "--dns.resolvers=8.8.8.8:53" ];
+    };
+  };
 
   services.nginx = {
     enable = true;
@@ -120,16 +148,20 @@ in
       # This host section can be placed on a different host than the rest,
       # i.e. to delegate from the host being accessible as ${config.networking.domain}
       # to another host actually running the Matrix homeserver.
-
       "${config.networking.domain}" = {
 
-        enableACME = true;
+        useACMEHost = "${config.networking.domain}";
         forceSSL = true;
 
         # https://github.com/matrix-org/synapse/blob/develop/docs/reverse_proxy.md
         locations."~* ^(/_matrix|/_synapse/client)" = {
           proxyPass = "http://[::1]:8008"; # without a trailing /
         };
+
+        # https://github.com/poljar/weechat-matrix/issues/123
+        extraConfig = ''
+          http2_max_requests 10000;
+        '';
 
         # expose admin api
         #locations."~* ^\/_synapse\/admin\/v1" = {
@@ -139,17 +171,6 @@ in
         # this could potentially proxy to nice website, but for now 404
         locations."/" = {
           root = indexHtml;
-
-          #listen = [
-          #  {
-          #    ip = "10.0.0.3";
-          #    port = 443;
-          #    tls = true;
-          #  }
-          #];
-          #extraConfig = ''
-          #  return 404
-          #'';
         };
 
         # server delegations
@@ -182,7 +203,8 @@ in
 
       # Reverse proxy for Matrix client-server and server-server communication
       ${fqdn} = {
-        enableACME = true;
+
+        useACMEHost = "${fqdn}";
         forceSSL = true;
 
         # Or do a redirect instead of the 404, or whatever is appropriate for you.
@@ -196,6 +218,33 @@ in
           proxyPass = "http://[::1]:8008"; # without a trailing /
         };
       };
+
+      "weechat.${config.networking.domain}" = {
+        useACMEHost = config.networking.domain;
+        forceSSL = true;
+        locations."/" = {
+          root = pkgs.glowing-bear;
+        };
+        locations."^~ /weechat" = {
+          # TODO define port in weechat module
+          proxyPass = "https://${config.hosts.lb1.domain}:26001";
+          proxyWebsockets = true;
+        };
+        listen =
+        let listenAddr = secrets.hosts.synapse.domain; in
+        [
+          {
+            addr = listenAddr;
+            port = 443;
+            ssl = true;
+          }
+          {
+            addr = listenAddr;
+            port = 80;
+          }
+        ];
+      };
+
     };
   };
 
