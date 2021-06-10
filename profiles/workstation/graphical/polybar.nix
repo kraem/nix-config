@@ -25,9 +25,9 @@ let
 
   polybarConfig = ''
     [colors]
-    background = #222222
-    background-alt = #444
-    foreground = #FFFFFF
+    background = #E7EAED
+    background-alt = #d2d2d2
+    foreground = #000000
     foreground-alt = #555
     primary = #ff
     secondary = #e60053

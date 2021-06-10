@@ -9,6 +9,7 @@ in
       "${wgServiceName}" = {
         wantedBy = [ "timers.target" ];
         partOf = [ "${wgServiceName}.service" ];
+        wants = [ "network.target" "wg-quick-w0.service" ];
         timerConfig.OnCalendar = "*:*:0/1";
         timerConfig.Persistent = "true";
         enable = true;
