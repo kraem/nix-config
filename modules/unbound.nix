@@ -2,6 +2,8 @@
 let
   secrets = import ../secrets/secrets.nix;
   domainGit = secrets.hosts.git.domain;
+  domainLb1 = secrets.hosts.lb1.domain;
+  domainSynapse = secrets.hosts.synapse.domain;
 in
 {
   services.unbound = {
@@ -23,9 +25,11 @@ in
         ];
         local-data = [
           ''"git.lan A ${domainGit}"''
-          ''"ne.bul.ae A 10.0.0.5"''
+          ''"weechat.ne.bul.ae A ${domainSynapse}"''
+          ''"git.ne.bul.ae A ${domainSynapse}"''
         ];
       };
+      remote-control.control-enable = true;
     };
   };
 
