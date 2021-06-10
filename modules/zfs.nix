@@ -1,6 +1,7 @@
 { config, pkgs, ... }:
 
 {
+  boot.zfs.enableUnstable = true;
 
   services = {
 
