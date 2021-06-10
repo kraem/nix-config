@@ -35,11 +35,12 @@
     ghc
     gnupg
     gopass
+    gopass-jsonapi
     libinput-gestures
     hunspell
     hunspellDicts.en-gb-ise
     hunspellDicts.sv-se
-    neofetch
+    freshfetch
     pandoc
     ripgrep-all
     usbutils
