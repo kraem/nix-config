@@ -156,33 +156,33 @@ in
             "google" = {
               channels = {
                 "inbox" = {
-                  masterPattern = "INBOX";
-                  slavePattern = "inbox";
+                  farPattern = "INBOX";
+                  nearPattern = "inbox";
                   extraConfig = channelExtraConfig;
                 };
                 "sent" = {
-                  masterPattern = "[Gmail]/Sent Mail";
-                  slavePattern = "sent";
+                  farPattern = "[Gmail]/Sent Mail";
+                  nearPattern = "sent";
                   extraConfig = channelExtraConfig;
                 };
                 "archive" = {
-                  masterPattern = "[Gmail]/All Mail";
-                  slavePattern = "archive";
+                  farPattern = "[Gmail]/All Mail";
+                  nearPattern = "archive";
                   extraConfig = channelExtraConfig;
                 };
                 "drafts" = {
-                  masterPattern = "[Gmail]/Drafts";
-                  slavePattern = "drafts";
+                  farPattern = "[Gmail]/Drafts";
+                  nearPattern = "drafts";
                   extraConfig = channelExtraConfig;
                 };
                 "trash" = {
-                  masterPattern = "[Gmail]/Trash";
-                  slavePattern = "trash";
+                  farPattern = "[Gmail]/Trash";
+                  nearPattern = "trash";
                   extraConfig = channelExtraConfig;
                 };
                 "spam" = {
-                  masterPattern = "[Gmail]/Spam";
-                  slavePattern = "spam";
+                  farPattern = "[Gmail]/Spam";
+                  nearPattern = "spam";
                   extraConfig = channelExtraConfig;
                 };
               };
@@ -234,33 +234,33 @@ in
             "mailbox" = {
               channels = {
                 "inbox" = {
-                  masterPattern = "INBOX";
-                  slavePattern = "inbox";
+                  farPattern = "INBOX";
+                  nearPattern = "inbox";
                   extraConfig = channelExtraConfig;
                 };
                 "sent" = {
-                  masterPattern = "Sent";
-                  slavePattern = "sent";
+                  farPattern = "Sent";
+                  nearPattern = "sent";
                   extraConfig = channelExtraConfig;
                 };
                 "archive" = {
-                  masterPattern = "Archive";
-                  slavePattern = "archive";
+                  farPattern = "Archive";
+                  nearPattern = "archive";
                   extraConfig = channelExtraConfig;
                 };
                 "drafts" = {
-                  masterPattern = "Drafts";
-                  slavePattern = "drafts";
+                  farPattern = "Drafts";
+                  nearPattern = "drafts";
                   extraConfig = channelExtraConfig;
                 };
                 "trash" = {
-                  masterPattern = "Trash";
-                  slavePattern = "trash";
+                  farPattern = "Trash";
+                  nearPattern = "trash";
                   extraConfig = channelExtraConfig;
                 };
                 "spam" = {
-                  masterPattern = "Junk";
-                  slavePattern = "spam";
+                  farPattern = "Junk";
+                  nearPattern = "spam";
                   extraConfig = channelExtraConfig;
                 };
               };
@@ -318,33 +318,33 @@ in
             "kth" = {
               channels = {
                 "inbox" = {
-                  masterPattern = "INBOX";
-                  slavePattern = "inbox";
+                  farPattern = "INBOX";
+                  nearPattern = "inbox";
                   extraConfig = channelExtraConfig;
                 };
                 "sent" = {
-                  masterPattern = "Sent Items";
-                  slavePattern = "sent";
+                  farPattern = "Sent Items";
+                  nearPattern = "sent";
                   extraConfig = channelExtraConfig;
                 };
                 "archive" = {
-                  masterPattern = "Archive";
-                  slavePattern = "archive";
+                  farPattern = "Archive";
+                  nearPattern = "archive";
                   extraConfig = channelExtraConfig;
                 };
                 "drafts" = {
-                  masterPattern = "Drafts";
-                  slavePattern = "drafts";
+                  farPattern = "Drafts";
+                  nearPattern = "drafts";
                   extraConfig = channelExtraConfig;
                 };
                 "trash" = {
-                  masterPattern = "Deleted Items";
-                  slavePattern = "trash";
+                  farPattern = "Deleted Items";
+                  nearPattern = "trash";
                   extraConfig = channelExtraConfig;
                 };
                 "spam" = {
-                  masterPattern = "Junk Email";
-                  slavePattern = "spam";
+                  farPattern = "Junk Email";
+                  nearPattern = "spam";
                   extraConfig = channelExtraConfig;
                 };
               };

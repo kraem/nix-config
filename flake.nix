@@ -4,17 +4,17 @@
   inputs = {
     nix = { url = "github:NixOS/nix"; inputs.nixpkgs.follows = "nixpkgs"; };
     nixpkgs.url = "github:NixOS/nixpkgs/master";
-    #nixpkgs.url = "git+https://github.com/kraem/nixpkgs?ref=kraem/zfs/revert-201";
     staging.url = "github:NixOS/nixpkgs/staging";
     flake-utils = { url = "github:numtide/flake-utils"; inputs.nixpkgs.follows = "nixpkgs"; };
     impermanence = { url = "github:nix-community/impermanence"; inputs.nixpkgs.follows = "nixpkgs"; };
-    home-manager = { url = "github:rycee/home-manager"; inputs.nixpkgs.follows = "nixpkgs"; };
+    home-manager =  { url = "github:jshholland/home-manager"; inputs.nixpkgs.follows = "nixpkgs"; };
     deploy-rs = { url = "github:serokell/deploy-rs"; inputs.nixpkgs.follows = "nixpkgs"; };
     dotfiles = { url = "github:kraem/dotfiles"; flake = false; };
     neovim-nightly = { url = "github:neovim/neovim"; inputs.nixpkgs.follows = "nixpkgs"; flake = false; };
   };
 
   outputs = { self,
+    nix,
     nixpkgs,
     staging,
     flake-utils,
@@ -34,6 +34,7 @@
       system = "x86_64-linux";
 
       mkSystem = system: module:
+        builtins.trace "\n\n\ncheck merge status:\n\tgithub:jshholland/home-manager\n\n\n"
         nixosSystem {
           specialArgs = {
             inherit inputs;
@@ -68,9 +69,9 @@
           };
         };
 
-        devShell = mkShell {
+        devShell =  mkShell {
           buildInputs = with nixpkgs.legacyPackages.${system}; [
-            nixUnstable
+            nix
             deploy-rs.defaultPackage.${system}
             mkIso
           ];

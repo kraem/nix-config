@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, inputs, ... }:
 
 {
   imports = [
@@ -23,7 +23,7 @@
   documentation.nixos.enable = true;
 
   nix = {
-    package = pkgs.nixFlakes;
+    package = inputs.nix.defaultPackage."${pkgs.system}";
     nixPath = [
       "nixpkgs=${pkgs.path}"
     ];
@@ -42,7 +42,9 @@
   users.defaultUserShell = pkgs.zsh;
 
   environment.systemPackages = with pkgs; [
-    direnv
+    (nix-direnv.override {
+      enableFlakes = true;
+    })
     exa
     fd
     fzf

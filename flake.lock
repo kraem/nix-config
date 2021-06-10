@@ -77,15 +77,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1615419569,
-        "narHash": "sha256-+ewB0sQGeoYryWZk2Ww2Lm/5jeqhlYTjGy6zEX2Mm1I=",
-        "owner": "rycee",
+        "lastModified": 1623253409,
+        "narHash": "sha256-LUTFtZ1dexhkbve6Q7BR/XkdrNTtU20jUSkyvx/0DGQ=",
+        "owner": "jshholland",
         "repo": "home-manager",
-        "rev": "040ea28e448a93d24540b7cf2eda4b25300c5ab1",
+        "rev": "f2b64279232b734eea415fe6a906d35d2471fe24",
         "type": "github"
       },
       "original": {
-        "owner": "rycee",
+        "owner": "jshholland",
         "repo": "home-manager",
         "type": "github"
       }
@@ -108,15 +108,16 @@
     "lowdown-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1598695561,
-        "narHash": "sha256-gyH/5j+h/nWw0W8AcR2WKvNBUsiQ7QuxqSJNXAwV+8E=",
+        "lastModified": 1617481909,
+        "narHash": "sha256-SqnfOFuLuVRRNeVJr1yeEPJue/qWoCp5N6o5Kr///p4=",
         "owner": "kristapsdz",
         "repo": "lowdown",
-        "rev": "1705b4a26fbf065d9574dce47a94e8c7c79e052f",
+        "rev": "148f9b2f586c41b7e36e73009db43ea68c7a1a4d",
         "type": "github"
       },
       "original": {
         "owner": "kristapsdz",
+        "ref": "VERSION_0_8_4",
         "repo": "lowdown",
         "type": "github"
       }
@@ -166,11 +167,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1610111826,
-        "narHash": "sha256-s5omoLuyZg99znZ7dgJ/cwZiMSw+cJIdJOYL77e3qvc=",
+        "lastModified": 1622809115,
+        "narHash": "sha256-0lfX3ihV+5VsOs40eSzNMUSNlmH6MRqkb+VDWaJNEzw=",
         "owner": "NixOS",
         "repo": "nix",
-        "rev": "e21aee58f6dd7785df50d5d2a473feb5f6b2ed4f",
+        "rev": "8e6ee1b9e924fbbbeb5594eb89e7a570f36ab6e1",
         "type": "github"
       },
       "original": {
