@@ -54,13 +54,16 @@ in
             frigate = {
               id = cfg.syncthingIDs.frigate;
             };
+            cane = {
+              id = cfg.syncthingIDs.cane;
+            };
           };
           folders.tmp = {
             devices =  [ "ursa" "lb1" "frigate" ];
             path = config.services.syncthing.dataDir + "/tmp";
           };
           folders.notes = {
-            devices =  [ "ursa" "lb1" "frigate" ];
+            devices =  [ "ursa" "lb1" "frigate" "cane" ];
             path = config.services.syncthing.dataDir + "/notes";
           };
           folders.documents = {
