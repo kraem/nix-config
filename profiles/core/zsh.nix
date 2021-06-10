@@ -57,6 +57,9 @@ in
       enable = true;
       enableCompletion = true;
       enableAutosuggestions = true;
+      sessionVariables = {
+        BAT_THEME = "GitHub";
+      };
       initExtraFirst = powerlevel-init;
       initExtra =
         (
