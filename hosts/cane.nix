@@ -11,6 +11,8 @@ in
     [ # Include the results of the hardware scan.
       ../hardware/cane.nix
 
+      ../hardware/bluetooth
+
       ../profiles/core
       ../profiles/workstation
       ../modules/zfs.nix
@@ -25,8 +27,16 @@ in
       ../overlays/neovim.nix
       ../overlays/isync.nix
 
+      ../modules/syncthing
+
       ../modules/docker.nix
     ];
+
+  my.syncthing = {
+    enable = true;
+    syncthingDir = "/var/lib/syncthing";
+    syncthingIDs = secrets.syncthingIDs;
+  };
 
   my.wireguardClient = {
     enable = true;
@@ -107,13 +117,13 @@ in
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-   environment.systemPackages = with pkgs; [
+  environment.systemPackages = with pkgs; [
      google-cloud-sdk
      kubectx
      kubectl
      jetbrains.datagrip
      jetbrains.goland
-   ];
+  ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
