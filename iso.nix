@@ -10,6 +10,8 @@
       ./modules/morph.nix
   ];
 
+  services.xserver.desktopManager.gnome.enable = true;
+
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   boot.loader.systemd-boot.enable = true;
