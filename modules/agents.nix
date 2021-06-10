@@ -3,7 +3,11 @@
 {
   programs = {
 
-    gnupg.agent = { enable = true; enableSSHSupport = true; };
+    gnupg.agent = {
+      enable = true;
+      enableSSHSupport = true;
+      #pinentryFlavor = "tty";
+    };
 
     # Old hack which isn't needed anymore
     # Saving for reference
