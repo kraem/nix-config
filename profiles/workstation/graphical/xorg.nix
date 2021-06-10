@@ -6,11 +6,9 @@
     alacritty
     arandr
     arc-icon-theme
-    deluge
     discord
     element-desktop
     feh
-    font-manager
     gnome3.adwaita-icon-theme
     gnome-themes-extra
     hsetroot
@@ -28,8 +26,6 @@
     spotify
     vulkan-tools
     wireshark
-    # for wpg --preview
-    wpgtk
     xautolock
     xclip
     xdotool
