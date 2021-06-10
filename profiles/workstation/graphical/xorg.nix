@@ -60,7 +60,7 @@
   };
 
   services = {
-    gnome3.gnome-keyring.enable = true;
+    gnome.gnome-keyring.enable = true;
     redshift.enable = true;
     xserver = {
       enable = true;
@@ -83,12 +83,11 @@
       };
 
       xautolock.enable = true;
-      xautolock.time = 3;
       xautolock.extraOptions = [
         "-corners 0-0-"
       ];
-      xautolock.locker = "${pkgs.i3lock}/bin/i3lock -c 222222 --nofork";
-      xautolock.nowlocker = "${pkgs.i3lock}/bin/i3lock -c 222222 --nofork";
+      xautolock.locker = "${pkgs.i3lock}/bin/i3lock -c DEF3FD --nofork";
+      xautolock.nowlocker = "${pkgs.i3lock}/bin/i3lock -c DEF3FD --nofork";
     };
 
     picom = {
